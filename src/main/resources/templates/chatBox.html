@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-pink-100 to-purple-100">
+    <div class="container mx-auto p-4 h-screen flex">
+        <div class="w-full max-w-6xl mx-auto bg-white rounded-lg shadow-lg flex overflow-hidden">
+            <!-- Sidebar -->
+            <div class="w-1/4 border-r border-purple-200 bg-gradient-to-b from-pink-50 to-purple-50">
+                <div class="p-4 border-b">
+                    <div class="relative">
+                        <input type="text" placeholder="Search chats..." class="w-full px-4 py-2 rounded-lg bg-purple-50 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <i class="fas fa-search absolute right-3 top-3 text-purple-400"></i>
+                    </div>
+                </div>
+                <!-- Chat List -->
+                <div class="overflow-y-auto h-[calc(100vh-180px)]">
+                    <div class="p-4 border-b hover:bg-purple-100 cursor-pointer">
+                        <div class="flex items-center space-x-4">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" class="w-12 h-12 rounded-full object-cover">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-purple-700">Makeup Artist</h4>
+                                <p class="text-sm text-purple-500">Online</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Chat Area -->
+            <div class="flex-1 flex flex-col">
+                <!-- Chat Header -->
+                <div class="p-4 border-b flex items-center justify-between bg-gradient-to-r from-pink-200 to-purple-200">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h3 class="font-semibold text-purple-800">Sarah Makeup Artist</h3>
+                            <p class="text-sm text-purple-600">Online</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button class="p-2 hover:bg-purple-100 rounded-full"><i class="fas fa-phone text-purple-700"></i></button>
+                        <button class="p-2 hover:bg-purple-100 rounded-full"><i class="fas fa-video text-purple-700"></i></button>
+                        <button class="p-2 hover:bg-purple-100 rounded-full"><i class="fas fa-ellipsis-v text-purple-700"></i></button>
+                    </div>
+                </div>
+                <!-- Messages Area -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-pink-50" id="chat-messages">
+                    <!-- Received Message -->
+                    <div class="flex items-start space-x-2">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" class="w-8 h-8 rounded-full object-cover">
+                        <div class="bg-purple-100 rounded-lg p-3 max-w-md">
+                            <p class="text-purple-800">Hi! I'm interested in your makeup services for a wedding.</p>
+                            <span class="text-xs text-purple-500 mt-1 block">10:30 AM</span>
+                        </div>
+                    </div>
+                    <!-- Sent Message -->
+                    <div class="flex items-start justify-end space-x-2">
+                        <div class="bg-pink-500 text-white rounded-lg p-3 max-w-md">
+                            <p>Hello! I'd be happy to help with your wedding makeup.</p>
+                            <span class="text-xs text-pink-100 mt-1 block">10:31 AM ✓✓</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Quick Responses -->
+                <div class="p-2 border-t border-b bg-gradient-to-r from-pink-200 to-purple-200 flex space-x-2 overflow-x-auto">
+                    <button class="px-4 py-2 bg-white rounded-full text-sm border hover:bg-pink-100 text-purple-700 whitespace-nowrap">Available for booking</button>
+                    <button class="px-4 py-2 bg-white rounded-full text-sm border hover:bg-pink-100 text-purple-700 whitespace-nowrap">Send portfolio</button>
+                    <button class="px-4 py-2 bg-white rounded-full text-sm border hover:bg-pink-100 text-purple-700 whitespace-nowrap">Request consultation</button>
+                </div>
+                <!-- Input Area -->
+                <div class="p-4 bg-white border-t">
+                    <div class="flex items-center space-x-4">
+                        <button class="text-purple-500 hover:text-purple-700"><i class="fas fa-plus"></i></button>
+                        <button class="text-purple-500 hover:text-purple-700"><i class="fas fa-image"></i></button>
+                        <button class="text-purple-500 hover:text-purple-700"><i class="fas fa-paperclip"></i></button>
+                        <input type="text" placeholder="Type a message..." class="flex-1 px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <button class="bg-pink-500 text-white rounded-full p-2 hover:bg-pink-600">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Settings Sidebar -->
+            <div class="w-1/4 border-l border-purple-200 bg-gradient-to-b from-pink-50 to-purple-50 p-4">
+                <h3 class="font-semibold mb-4 text-purple-700">Settings</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-purple-700">Dark Mode</span>
+                        <button class="w-12 h-6 rounded-full bg-purple-300 relative">
+                            <span class="w-4 h-4 bg-white rounded-full absolute left-1 top-1"></span>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-purple-700">Notifications</span>
+                        <button class="w-12 h-6 rounded-full bg-pink-500 relative">
+                            <span class="w-4 h-4 bg-white rounded-full absolute right-1 top-1"></span>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-purple-700">Sound</span>
+                        <button class="w-12 h-6 rounded-full bg-pink-500 relative">
+                            <span class="w-4 h-4 bg-white rounded-full absolute right-1 top-1"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
