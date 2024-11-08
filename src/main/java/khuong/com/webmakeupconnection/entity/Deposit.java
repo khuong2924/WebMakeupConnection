@@ -1,4 +1,4 @@
-package khuong.com.webmakeupconnection.model;
+package khuong.com.webmakeupconnection.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

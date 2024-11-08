@@ -1,4 +1,4 @@
-package khuong.com.webmakeupconnection.model;
+package khuong.com.webmakeupconnection.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -56,5 +56,4 @@ public class JobPost {
         Active, Closed
     }
 
-    // Getters and Setters
 }
