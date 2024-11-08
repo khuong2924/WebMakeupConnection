@@ -1,0 +1,9 @@
+package khuong.com.webmakeupconnection.repository;
+
+import khuong.com.webmakeupconnection.entity.Deposit;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface DepositRepository extends JpaRepository<Deposit, Long> {
+    List<Deposit> findByPaymentId(Long paymentId);
+}
