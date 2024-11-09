@@ -2,11 +2,15 @@ package khuong.com.webmakeupconnection.dto;
 
 import khuong.com.webmakeupconnection.entity.JobPost.JobType;
 import khuong.com.webmakeupconnection.entity.JobPost.Status;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class JobPostDTO {
     private Long id;
     private Long userId;
