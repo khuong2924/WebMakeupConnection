@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,8 +13,8 @@ import java.time.LocalDateTime;
 public class StatisticDTO {
     private Long id;
     private Long userId;
-    private Double income;
-    private Double expenses;
+    private BigDecimal income;
+    private BigDecimal expenses;
     private String serviceType;
     private String location;
     private String period;

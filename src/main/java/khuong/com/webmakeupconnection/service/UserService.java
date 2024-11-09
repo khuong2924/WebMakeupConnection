@@ -42,7 +42,7 @@ public class UserService {
 
     public void update(Long id, UserDTO userDTO) {
         User user = userRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
@@ -55,15 +55,15 @@ public class UserService {
     }
 
     public UserDTO getById(Long id) {
-        User user = userRepo.findById(id).orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
+        User user = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         if (user == null) {
-            throw new RuntimeException("Khong tim thay nguoi dung");
+            throw new RuntimeException("User not found");
         }
         return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPhone(), user.getRole(), user.getCccd(), user.getPortraitPhoto(), user.getCreatedAt());
     }
 
     public void delete(Long id) {
-        userRepo.findById(id).orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
+        userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         userRepo.deleteById(id);
     }
 }
