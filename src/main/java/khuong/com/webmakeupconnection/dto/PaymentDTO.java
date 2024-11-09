@@ -1,11 +1,11 @@
 package khuong.com.webmakeupconnection.dto;
 
-import khuong.com.webmakeupconnection.entity.Payment.PaymentMethod;
-import khuong.com.webmakeupconnection.entity.Payment.Status;
+import khuong.com.webmakeupconnection.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,10 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PaymentDTO {
     private Long id;
-    private Long userId;
-    private Long jobPostId;
-    private PaymentMethod paymentMethod;
-    private Double amount;
-    private Status status;
+    private Long UserID;
+    private BigDecimal amount;
+    private String status;
     private LocalDateTime createdAt;
 }

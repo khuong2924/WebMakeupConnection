@@ -21,33 +21,22 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "full_name", length = 100)
     private String fullName;
 
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
+    private String birthDate;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String gender;
 
-    @Column(columnDefinition = "TEXT")
     private String bio;
 
-    @Column(columnDefinition = "TEXT")
     private String skills;
 
-    @Column(columnDefinition = "TEXT")
     private String experience;
 
-    @Column(name = "portfolio_photo")
     private String portfolioPhoto;
-
-    public enum Gender {
-        Male, Female, Other
-    }
 
 }

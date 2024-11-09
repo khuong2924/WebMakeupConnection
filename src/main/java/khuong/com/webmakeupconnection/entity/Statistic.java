@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,23 +26,17 @@ public class Statistic {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private Double income = 0.0;
-    private Double expenses = 0.0;
+    private BigDecimal income = BigDecimal.ZERO;
 
-    @Column(name = "service_type", length = 50)
+    private BigDecimal expenses = BigDecimal.ZERO;
+
     private String serviceType;
 
-    @Column(length = 255)
     private String location;
 
-    @Enumerated(EnumType.STRING)
-    private Period period;
+    private String period;
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    public enum Period {
-        Weekly, Monthly, Yearly
-    }
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt;
 
 }

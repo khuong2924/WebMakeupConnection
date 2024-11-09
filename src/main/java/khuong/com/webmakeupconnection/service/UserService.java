@@ -11,28 +11,20 @@ import java.util.List;
 
 @Service
 public class UserService {
-
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepo;
 
-    private List<UserDTO> mapToDto(List<User> userList) {
-        List<UserDTO> userDTOList = new ArrayList<>();
-        for (User user : userList) {
-            userDTOList.add(new UserDTO(
-                    user.getId(),
-                    user.getUsername(),
-                    user.getEmail(),
-                    user.getPhone(),
-                    user.getRole(),
-                    user.getPortraitPhoto()
-            ));
+    private List<UserDTO> mapToDto(List<User> listEntity) {
+        List<UserDTO> list = new ArrayList<>();
+        for (User user : listEntity) {
+            UserDTO dto = new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPhone(), user.getRole(), user.getCccd(), user.getPortraitPhoto(), user.getCreatedAt());
+            list.add(dto);
         }
-        return userDTOList;
+        return list;
     }
 
-
     public List<UserDTO> getAll() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepo.findAll();
         return mapToDto(users);
     }
 
@@ -41,40 +33,38 @@ public class UserService {
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setPhone(userDTO.getPhone());
-        user.setRole(User.Role.valueOf(String.valueOf(userDTO.getRole())));
+        user.setRole(userDTO.getRole());
+        user.setCccd(userDTO.getCccd());
         user.setPortraitPhoto(userDTO.getPortraitPhoto());
-        userRepository.save(user);
+        user.setCreatedAt(userDTO.getCreatedAt());
+        userRepo.save(user);
     }
 
-    // Cập nhật thông tin người dùng
     public void update(Long id, UserDTO userDTO) {
-        User user = userRepository.findById(id)
+        User user = userRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
 
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setPhone(userDTO.getPhone());
         user.setRole(userDTO.getRole());
+        user.setCccd(userDTO.getCccd());
         user.setPortraitPhoto(userDTO.getPortraitPhoto());
-        userRepository.save(user);
+        user.setCreatedAt(userDTO.getCreatedAt());
+        userRepo.save(user);
     }
 
     public UserDTO getById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
-        return new UserDTO(
-                user.getId(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getPhone(),
-                user.getRole(),
-                user.getPortraitPhoto()
-        );
+        User user = userRepo.findById(id).orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
+        if (user == null) {
+            throw new RuntimeException("Khong tim thay nguoi dung");
+        }
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPhone(), user.getRole(), user.getCccd(), user.getPortraitPhoto(), user.getCreatedAt());
     }
 
     public void delete(Long id) {
-        userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
-        userRepository.deleteById(id);
+        userRepo.findById(id).orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
+        userRepo.deleteById(id);
     }
 }
+

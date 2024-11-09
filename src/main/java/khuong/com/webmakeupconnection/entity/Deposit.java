@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,20 +21,15 @@ public class Deposit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "payment_id", nullable = false)
     private Payment payment;
 
-    private Double amount;
+    private BigDecimal amount;
 
     @Column(name = "deposit_date")
     private LocalDateTime depositDate;
 
-    @Enumerated(EnumType.STRING)
-    private Status status = Status.Held;
-
-    public enum Status {
-        Held, Released, Forfeited
-    }
+    private String status = "Held";
 
 }

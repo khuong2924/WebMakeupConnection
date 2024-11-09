@@ -1,6 +1,5 @@
 package khuong.com.webmakeupconnection.dto;
 
-import khuong.com.webmakeupconnection.entity.Statistic.Period;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +16,6 @@ public class StatisticDTO {
     private Double expenses;
     private String serviceType;
     private String location;
-    private Period period;
+    private String period;
     private LocalDateTime createdAt;
 }

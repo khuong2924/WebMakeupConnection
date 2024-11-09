@@ -29,13 +29,11 @@ public class Message {
     @JoinColumn(name = "receiver_id", nullable = false)
     private User receiver;
 
-    @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "message_date", updatable = false)
-    private LocalDateTime messageDate = LocalDateTime.now();
+    @Column(name = "message_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime messageDate;
 
-    @Column(name = "is_read")
     private Boolean isRead = false;
 
 }

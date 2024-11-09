@@ -1,21 +1,21 @@
 package khuong.com.webmakeupconnection.dto;
 
-import khuong.com.webmakeupconnection.entity.Profile.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfileDTO {
     private Long id;
-    private Long userId;
     private String fullName;
-    private LocalDate birthDate;
-    private Gender gender;
+    private String birthDate;
+    private String gender;
     private String bio;
     private String skills;
     private String experience;

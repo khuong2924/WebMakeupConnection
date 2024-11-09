@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import khuong.com.webmakeupconnection.entity.User.Role;
+import java.time.LocalDateTime;
+
 
 @Data
 @NoArgsConstructor
@@ -17,6 +18,8 @@ public class UserDTO {
     private String username;
     private String email;
     private String phone;
-    private Role role;
+    private String role;
+    private String cccd;
     private String portraitPhoto;
+    LocalDateTime createdAt;
 }

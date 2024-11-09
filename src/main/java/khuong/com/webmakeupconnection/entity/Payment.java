@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,27 +27,14 @@ public class Payment {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "job_post_id", nullable = false)
+    @JoinColumn(name = "job_post_id")
     private JobPost jobPost;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_method", nullable = false)
-    private PaymentMethod paymentMethod;
+    private BigDecimal amount;
 
-    private Double amount;
+    private String status = "Pending";
 
-    @Enumerated(EnumType.STRING)
-    private Status status = Status.Pending;
-
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    public enum PaymentMethod {
-        MobileBanking, EWallet
-    }
-
-    public enum Status {
-        Pending, Completed, Refunded
-    }
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt;
 
 }
