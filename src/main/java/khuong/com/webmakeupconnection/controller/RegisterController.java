@@ -31,7 +31,8 @@ public class RegisterController {
                         .body("User is created successfully for " + savedUser.getUsername());
 
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Internal Server Error: " + e.getMessage());
         }

@@ -19,12 +19,10 @@ public class UserService {
         return userRepo.save(user);
     }
 
-
-
     private List<UserDTO> mapToDto(List<User> listEntity) {
         List<UserDTO> list = new ArrayList<>();
         for (User user : listEntity) {
-            UserDTO dto = new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPhone(), user.getRole(), user.getCccd(), user.getPortraitPhoto(), user.getCreatedAt());
+            UserDTO dto = new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getPhone(), user.getRole(), user.getCccd(), user.getPortraitPhoto(), user.getCreatedAt());
             list.add(dto);
         }
         return list;
@@ -38,6 +36,7 @@ public class UserService {
     public void create(UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
         user.setEmail(userDTO.getEmail());
         user.setPhone(userDTO.getPhone());
         user.setRole(userDTO.getRole());
@@ -52,6 +51,7 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
         user.setEmail(userDTO.getEmail());
         user.setPhone(userDTO.getPhone());
         user.setRole(userDTO.getRole());
@@ -66,7 +66,7 @@ public class UserService {
         if (user == null) {
             throw new RuntimeException("User not found");
         }
-        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getPhone(), user.getRole(), user.getCccd(), user.getPortraitPhoto(), user.getCreatedAt());
+        return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getPhone(), user.getRole(), user.getCccd(), user.getPortraitPhoto(), user.getCreatedAt());
     }
 
     public void delete(Long id) {
@@ -74,16 +74,16 @@ public class UserService {
         userRepo.deleteById(id);
     }
 
-    public User validateUser(String email, String password) {
-        Optional<User> optionalUser = userRepo.findByEmail(email);
+    public boolean validateUser(String username, String password) {
+        Optional<User> optionalUser = userRepo.findByUsername(username);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             if (user.getPassword().equals(password)) {
-                return user;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
 

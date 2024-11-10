@@ -17,19 +17,23 @@
             <h2 class="text-3xl font-semibold mb-6 text-center">Đăng nhập</h2>
             <form action="/login" method="POST" class="space-y-4">
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500" placeholder="Email">
+                    <label for="username" class="block text-sm font-medium text-gray-700">Tên đăng nhập</label>
+                    <input type=text id= "username" name= "username" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500" >
                 </div>
                 <div>
-<!--                    <label for="password" class="block text-sm font-medium text-gray-700">Mật khẩu</label>-->
-                    <label class="block text-sm font-medium text-gray-700">Mật khẩu</label>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Mật khẩu</label>
                     <div class="relative">
-                        <input type="password" id="confirm-password" name="confirm-password" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500">
-                        <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5" onclick="toggleConfirmPassword()">
-                            <img id="confirm-password-icon" src="../img/hide-password.svg" alt="Toggle Password" class="h-5 w-5">
+                        <input type="password" id="password" name="password" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+                        <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5" onclick="togglePassword()">
+                            <img id="password-icon" src="../img/hide-password.svg" alt="Toggle Password" class="h-5 w-5">
                         </button>
                     </div>
+
+                    <div th:if="${error}">
+                        <span style="color:red" th:text="${error}"></span>
+                    </div>
                 </div>
+
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
@@ -70,13 +74,22 @@
     <script>
         function togglePassword() {
             const passwordInput = document.getElementById('password');
-            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+            const passwordIcon = document.getElementById('password-icon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.src = '/img/show-password-3.svg';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.src = '/img/hide-password.svg';
+            }
         }
+
 
         function toggleConfirmPassword() {
             const confirmPasswordInput = document.getElementById('confirm-password');
             const confirmPasswordIcon = document.getElementById('confirm-password-icon');
-            
+
             if (confirmPasswordInput.type === 'password') {
                 confirmPasswordInput.type = 'text';
                 confirmPasswordIcon.src = '/img/show-password-3.svg';
