@@ -24,7 +24,7 @@ public class LoginController {
         if (isAuthenticated) {
             return "redirect:/home";
         } else {
-            model.addAttribute("error", "Invalid credentials");
+            model.addAttribute("error", "Password incorrect");
             return "login";
         }
     }

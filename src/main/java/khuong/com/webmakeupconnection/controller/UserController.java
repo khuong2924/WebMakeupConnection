@@ -2,6 +2,7 @@ package khuong.com.webmakeupconnection.controller;
 
 import khuong.com.webmakeupconnection.dto.ResponseDTO;
 import khuong.com.webmakeupconnection.dto.UserDTO;
+import khuong.com.webmakeupconnection.entity.User;
 import khuong.com.webmakeupconnection.repository.UserRepository;
 import khuong.com.webmakeupconnection.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -65,5 +68,19 @@ public class UserController {
         List<UserDTO> users = userService.getAll();
         model.addAttribute("users", users);
         return "users";
+    }
+
+    //upload image:
+    @Autowired
+    private ImageUploadService imageUploadService;
+
+    @PostMapping("/{userId}/updateProfilePicture")
+    public String updateProfilePicture(@PathVariable Long userId, @RequestParam("file") MultipartFile file) throws IOException, IOException {
+        String imageUrl = imageUploadService.uploadImage(file);
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setPortraitPhoto(imageUrl);
+        userRepository.save(user);
+        return "Profile picture updated successfully";
     }
 }
