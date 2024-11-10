@@ -8,11 +8,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepo;
+
+    public User createUser(User user) {
+        return userRepo.save(user);
+    }
+
+
 
     private List<UserDTO> mapToDto(List<User> listEntity) {
         List<UserDTO> list = new ArrayList<>();
@@ -66,5 +73,20 @@ public class UserService {
         userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         userRepo.deleteById(id);
     }
+
+    public User validateUser(String email, String password) {
+        Optional<User> optionalUser = userRepo.findByEmail(email);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+
+
 }
 
