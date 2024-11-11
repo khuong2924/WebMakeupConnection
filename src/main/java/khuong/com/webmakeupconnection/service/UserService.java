@@ -4,6 +4,8 @@ import khuong.com.webmakeupconnection.dto.UserDTO;
 import khuong.com.webmakeupconnection.entity.User;
 import khuong.com.webmakeupconnection.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -74,6 +76,8 @@ public class UserService {
         userRepo.deleteById(id);
     }
 
+
+
     public boolean validateUser(String username, String password) {
         Optional<User> optionalUser = userRepo.findByUsername(username);
 
@@ -85,6 +89,38 @@ public class UserService {
         }
         return false;
     }
+
+    public User validateGetUser(String username, String password) {
+        Optional<User> optionalUser = userRepo.findByUsername(username);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+//    public User validateUser(String username, String password) {
+//        // Tìm User dựa trên username, trả về Optional<User>
+//        Optional<User> optionalUser = userRepo.findByUsername(username);
+//
+//        // Kiểm tra xem User có tồn tại và mật khẩu có khớp không
+//        if (optionalUser.isPresent() && optionalUser.get().getPassword().equals(password)) {
+//            return optionalUser.get();  // Trả về User nếu xác thực thành công
+//        }
+//
+//        return null;  // Trả về null nếu xác thực không thành công
+//    }
+
+//    public String getCurrentUsername() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication != null) {
+//            return authentication.getName();
+//        }
+//        return null;
+//    }
 
 
 

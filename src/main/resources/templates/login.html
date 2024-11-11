@@ -30,7 +30,7 @@
                     </div>
 
                     <div th:if="${error}">
-                        <span style="color:red" th:text="${error}"></span>
+                        <span style="color:#7c3030" th:text="${error}"></span>
                     </div>
                 </div>
 
@@ -98,6 +98,13 @@
                 confirmPasswordIcon.src = '/img/hide-password.svg';
             }
         }
+        //xóa session cũ
+        sessionStorage.removeItem("error");
+
+
+
+        // Gắn hàm handleLogin vào sự kiện submit của form đăng nhập
+        // document.querySelector('form').addEventListener('submit', handleLogin);
     </script>
 </body>
 </html>

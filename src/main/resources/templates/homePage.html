@@ -20,7 +20,14 @@
             <a href="/chatBox">
                 <img src="/img/message.png" alt="Notify" class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
             </a>
+            <a href="#" onclick="confirmLogout(event);" class="ml-auto">
+                <img src="../img/log_out.png" alt="Logout" class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <form id="logoutForm" action="/logout" method="POST" style="display: none;">
+            </form>
+
         </div>
+
     </div>
 </nav>
 
@@ -237,7 +244,21 @@
                 profileCarousel.style.transform = `translateY(-${currentProfileIndex * profileHeight}px)`;
             }
 
-            setInterval(showNextProfilePair, 5000);
+            setInterval(showNextProfilePair, 50000);
+
+
+            function confirmLogout(event) {
+                event.preventDefault();
+                const isConfirmed = confirm("Bạn có chắc muốn đăng xuất?");
+
+                if (isConfirmed) {
+                    document.getElementById('logoutForm').submit();
+                }
+            }
+
+
+
+
         </script>
     </div>
 </div>

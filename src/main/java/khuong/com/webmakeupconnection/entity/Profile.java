@@ -21,9 +21,8 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     private String fullName;
 
@@ -33,10 +32,10 @@ public class Profile {
 
     private String bio;
 
-    private String skills;
-
-    private String experience;
+    private String address;
 
     private String portfolioPhoto;
+
+    private String coverPhoto;
 
 }

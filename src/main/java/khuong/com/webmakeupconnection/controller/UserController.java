@@ -9,11 +9,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -83,4 +86,15 @@ public class UserController {
         userRepository.save(user);
         return "Profile picture updated successfully";
     }
+
+
+    //lay username nguoi dung dang dang nhap:
+//    @GetMapping("/current")
+//    public String getCurrentUsername(@AuthenticationPrincipal UserDetails userDetails) {
+//        return userDetails.getUsername();
+//    }
+//    @GetMapping("/current")
+//    public String getCurrentUser(Principal principal) {
+//        return principal.getName();
+//    }
 }

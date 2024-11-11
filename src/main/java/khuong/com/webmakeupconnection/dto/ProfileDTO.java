@@ -1,5 +1,6 @@
 package khuong.com.webmakeupconnection.dto;
 
+import khuong.com.webmakeupconnection.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -13,11 +14,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ProfileDTO {
     private Long id;
+    private Long user_id;
     private String fullName;
     private String birthDate;
     private String gender;
     private String bio;
-    private String skills;
-    private String experience;
+    private String address;
     private String portfolioPhoto;
+    private String coverPhoto;
 }

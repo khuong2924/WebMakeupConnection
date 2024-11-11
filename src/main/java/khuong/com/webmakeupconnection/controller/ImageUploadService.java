@@ -15,13 +15,13 @@ public class ImageUploadService {
     @Autowired
     private Cloudinary cloudinary;
 
+    @SuppressWarnings("unchecked")
     public String uploadImage(MultipartFile file) throws IOException {
         Map<String, Object> uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
         return (String) uploadResult.get("url");
     }
 
     public String getImageUrl(String publicId) {
-        String imageUrl = cloudinary.url().resourceType("image").publicId(publicId).generate();
-        return imageUrl;
+        return cloudinary.url().resourceType("image").publicId(publicId).generate();
     }
 }
