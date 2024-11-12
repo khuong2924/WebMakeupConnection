@@ -6,6 +6,7 @@ import khuong.com.webmakeupconnection.config.SessionUtils;
 import khuong.com.webmakeupconnection.dto.ProfileDTO;
 import khuong.com.webmakeupconnection.dto.ResponseDTO;
 import khuong.com.webmakeupconnection.entity.Profile;
+import khuong.com.webmakeupconnection.entity.User;
 import khuong.com.webmakeupconnection.repository.ProfileRepository;
 import khuong.com.webmakeupconnection.repository.UserRepository;
 import khuong.com.webmakeupconnection.service.ProfileService;
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @RestController
@@ -38,9 +42,40 @@ public class ProfileController {
 
     private final SessionUtils sessionUtils;
 
-
+    Long currentUserId = SessionUtils.getCurrentUserId();
 
     @GetMapping
+    public ResponseDTO<List<ProfileDTO>> getAllProfiles() {
+        ResponseDTO<List<ProfileDTO>> responseDTO = new ResponseDTO<>();
+//        User user = SessionUtils.getCurrentUser();
+//        if (user == null) {
+//            responseDTO.setStatus(400);
+//            responseDTO.setMessage("User is not logged in.");
+//            return responseDTO;
+//        }
+        // Lấy user_id từ đối tượng User
+//        Long userId = SessionUtils.getCurrentUserId();
+//        // Lấy profile từ ProfileService theo userId
+//        Optional<Profile> profileOptional = profileRepository.findByUserId(userId);
+//
+//        if (!profileOptional.isPresent()) {
+//            responseDTO.setStatus(404);
+//            responseDTO.setMessage("Profile not found for the user.");
+//            return responseDTO;
+//        }
+//        ProfileDTO profileDTO = profileService.mapToDto(Collections.singletonList(profileOptional.get())).get(0);
+//        responseDTO.setData(Collections.singletonList(profileDTO));
+//        responseDTO.setStatus(200);
+        responseDTO.setData(profileService.getAll());
+        responseDTO.setStatus(200);
+
+        return responseDTO;
+    }
+
+
+
+
+    @GetMapping("/all")
     public ResponseDTO<List<ProfileDTO>> getAll() {
         ResponseDTO<List<ProfileDTO>> responseDTO = new ResponseDTO<>();
         responseDTO.setData(profileService.getAll());
@@ -49,15 +84,15 @@ public class ProfileController {
 
     }
 
-    @PostMapping
-    public ResponseDTO<Void> create(@RequestBody ProfileDTO profileDTO) {
-        profileService.create(profileDTO);
-        ResponseDTO<Void> responseDTO = ResponseDTO.<Void>builder()
-                .status(201)
-                .message("Tao thanh cong profile")
-                .build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO).getBody();
-    }
+//    @PostMapping
+//    public ResponseDTO<Void> create(@RequestBody ProfileDTO profileDTO) {
+//        profileService.create(profileDTO);
+//        ResponseDTO<Void> responseDTO = ResponseDTO.<Void>builder()
+//                .status(201)
+//                .message("Tao thanh cong profile")
+//                .build();
+//        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO).getBody();
+//    }
 
     @PutMapping("{id}")
     public ResponseDTO<Void> update(@PathVariable("id") Long id, @RequestBody ProfileDTO profileDTO) {
@@ -156,6 +191,9 @@ public class ProfileController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
+
+
+
 
 }
 

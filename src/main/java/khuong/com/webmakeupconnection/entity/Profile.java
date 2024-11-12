@@ -21,8 +21,11 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+//    @Column(name = "user_id", nullable = false)
+//    private Long userId;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 
     private String fullName;
 
@@ -37,5 +40,14 @@ public class Profile {
     private String portfolioPhoto;
 
     private String coverPhoto;
+
+
+    public Long getUser_id() {
+        return this.user.getId();
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user.setId(user_id);
+    }
 
 }

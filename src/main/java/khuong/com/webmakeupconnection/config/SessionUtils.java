@@ -20,4 +20,16 @@ public class SessionUtils {
         }
         return null;
     }
+
+    public static User getCurrentUser() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            HttpSession session = (HttpSession) requestAttributes.resolveReference(RequestAttributes.REFERENCE_SESSION);
+            if (session != null) {
+                User user = (User) session.getAttribute("user");
+                return user;
+            }
+        }
+        return null;
+    }
 }

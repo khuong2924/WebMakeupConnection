@@ -26,16 +26,31 @@ public class ProfileService {
     @Autowired
     private UserRepository userRepository;
 
-    // Xóa dòng này vì không cần inject ProfileService vào chính ProfileService
-    // @Autowired
-    // private ProfileService profileService;
 
-    private List<ProfileDTO> mapToDto(List<Profile> profileList) {
+//    private List<ProfileDTO> mapToDto(List<Profile> profileList) {
+//        List<ProfileDTO> profileDTOList = new ArrayList<>();
+//        for (Profile profile : profileList) {
+//            profileDTOList.add(new ProfileDTO(
+//                    profile.getId(),
+//                    profile.getUserId(),
+//                    profile.getFullName(),
+//                    profile.getBirthDate(),
+//                    profile.getGender(),
+//                    profile.getBio(),
+//                    profile.getAddress(),
+//                    profile.getPortfolioPhoto(),
+//                    profile.getCoverPhoto()
+//            ));
+//        }
+//        return profileDTOList;
+//    }
+
+    public List<ProfileDTO> mapToDto(List<Profile> profileList) {
         List<ProfileDTO> profileDTOList = new ArrayList<>();
         for (Profile profile : profileList) {
             profileDTOList.add(new ProfileDTO(
                     profile.getId(),
-                    profile.getUserId(),
+                    profile.getUser_id(),
                     profile.getFullName(),
                     profile.getBirthDate(),
                     profile.getGender(),
@@ -55,7 +70,7 @@ public class ProfileService {
 
     public void create(ProfileDTO profileDTO) {
         Profile profile = new Profile();
-        profile.setUserId(profileDTO.getUser_id());
+        profile.setUser_id(profileDTO.getUser_id());
         profile.setFullName(profileDTO.getFullName());
         profile.setBirthDate(profileDTO.getBirthDate());
         profile.setGender(profileDTO.getGender());
@@ -69,7 +84,7 @@ public class ProfileService {
     public void update(Long id, ProfileDTO profileDTO) {
         Profile profile = profileRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
-        profile.setUserId(profileDTO.getUser_id());
+        profile.setUser_id(profileDTO.getUser_id());
         profile.setFullName(profileDTO.getFullName());
         profile.setBirthDate(profileDTO.getBirthDate());
         profile.setGender(profileDTO.getGender());
@@ -129,7 +144,7 @@ public class ProfileService {
 
         return new ProfileDTO(
                 profile.getId(),
-                profile.getUserId(),
+                profile.getUser_id(),
                 profile.getFullName(),
                 profile.getBirthDate(),
                 profile.getGender(),

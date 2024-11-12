@@ -2,11 +2,14 @@ package khuong.com.webmakeupconnection.service;
 
 import khuong.com.webmakeupconnection.dto.UserDTO;
 import khuong.com.webmakeupconnection.entity.User;
+import khuong.com.webmakeupconnection.entity.Profile;
 import khuong.com.webmakeupconnection.repository.UserRepository;
+import khuong.com.webmakeupconnection.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +20,22 @@ public class UserService {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private ProfileRepository profileRepo; // Thêm ProfileRepository để quản lý profile
+
+    @Transactional
     public User createUser(User user) {
-        return userRepo.save(user);
+        // Lưu user mới
+        User savedUser = userRepo.save(user);
+
+        // Tạo profile rỗng tương ứng với user
+        Profile profile = new Profile();
+        profile.setUser(savedUser);
+
+        // Lưu profile vào database
+        profileRepo.save(profile);
+
+        return savedUser;
     }
 
     private List<UserDTO> mapToDto(List<User> listEntity) {
@@ -45,7 +62,9 @@ public class UserService {
         user.setCccd(userDTO.getCccd());
         user.setPortraitPhoto(userDTO.getPortraitPhoto());
         user.setCreatedAt(userDTO.getCreatedAt());
-        userRepo.save(user);
+
+        // Tạo User và Profile tương ứng
+        createUser(user);
     }
 
     public void update(Long id, UserDTO userDTO) {
@@ -76,8 +95,6 @@ public class UserService {
         userRepo.deleteById(id);
     }
 
-
-
     public boolean validateUser(String username, String password) {
         Optional<User> optionalUser = userRepo.findByUsername(username);
 
@@ -102,17 +119,7 @@ public class UserService {
         return null;
     }
 
-//    public User validateUser(String username, String password) {
-//        // Tìm User dựa trên username, trả về Optional<User>
-//        Optional<User> optionalUser = userRepo.findByUsername(username);
-//
-//        // Kiểm tra xem User có tồn tại và mật khẩu có khớp không
-//        if (optionalUser.isPresent() && optionalUser.get().getPassword().equals(password)) {
-//            return optionalUser.get();  // Trả về User nếu xác thực thành công
-//        }
-//
-//        return null;  // Trả về null nếu xác thực không thành công
-//    }
+
 
 //    public String getCurrentUsername() {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -121,8 +128,4 @@ public class UserService {
 //        }
 //        return null;
 //    }
-
-
-
 }
-
