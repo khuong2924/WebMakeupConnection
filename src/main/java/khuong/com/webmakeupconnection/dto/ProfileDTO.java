@@ -22,4 +22,5 @@ public class ProfileDTO {
     private String address;
     private String portfolioPhoto;
     private String coverPhoto;
+    private String role;
 }

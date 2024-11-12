@@ -45,6 +45,23 @@ public class ProfileService {
 //        return profileDTOList;
 //    }
 
+    public void createOrUpdate(ProfileDTO profileDTO) {
+        Profile profile = profileRepository.findByUserId(profileDTO.getUser_id())
+                .orElse(new Profile());
+
+        profile.setUser_id(profileDTO.getUser_id());
+        profile.setFullName(profileDTO.getFullName());
+        profile.setBirthDate(profileDTO.getBirthDate());
+        profile.setGender(profileDTO.getGender());
+        profile.setBio(profileDTO.getBio());
+        profile.setAddress(profileDTO.getAddress());
+        profile.setPortfolioPhoto(profileDTO.getPortfolioPhoto());
+        profile.setCoverPhoto(profileDTO.getCoverPhoto());
+
+        profileRepository.save(profile);
+    }
+
+
     public List<ProfileDTO> mapToDto(List<Profile> profileList) {
         List<ProfileDTO> profileDTOList = new ArrayList<>();
         for (Profile profile : profileList) {
@@ -57,7 +74,8 @@ public class ProfileService {
                     profile.getBio(),
                     profile.getAddress(),
                     profile.getPortfolioPhoto(),
-                    profile.getCoverPhoto()
+                    profile.getCoverPhoto(),
+                    profile.getUser().getRole()
             ));
         }
         return profileDTOList;
@@ -151,7 +169,29 @@ public class ProfileService {
                 profile.getBio(),
                 profile.getAddress(),
                 profile.getPortfolioPhoto(),
-                profile.getCoverPhoto()
+                profile.getCoverPhoto(),
+                profile.getUser().getRole()
+        );
+    }
+
+    public ProfileDTO getByUserId(Long id) {
+        Profile profile = profileRepository.findByUserId(id)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+        if (profile == null) {
+            throw new RuntimeException("Profile not found");
+        }
+
+        return new ProfileDTO(
+                profile.getId(),
+                profile.getUser_id(),
+                profile.getFullName(),
+                profile.getBirthDate(),
+                profile.getGender(),
+                profile.getBio(),
+                profile.getAddress(),
+                profile.getPortfolioPhoto(),
+                profile.getCoverPhoto(),
+                profile.getUser().getRole()
         );
     }
 

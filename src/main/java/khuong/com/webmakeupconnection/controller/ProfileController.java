@@ -156,44 +156,62 @@ public class ProfileController {
     // Endpoint để cập nhật profile
     @PostMapping("/upload")
     public ResponseEntity<ResponseDTO<Void>> createOrUpdateProfile(
-            @RequestParam("user_id") Long user_id,
+            @RequestParam("user_id") Long userId,
             @RequestParam("fullName") String fullName,
             @RequestParam("birthDate") String birthDate,
             @RequestParam("gender") String gender,
             @RequestParam("bio") String bio,
             @RequestParam("address") String address,
-            @RequestParam("portfolioPhoto") MultipartFile portfolioPhoto,
-            @RequestParam("coverPhoto") MultipartFile coverPhoto) throws IOException {
+            @RequestParam(value = "portfolioPhoto", required = false) MultipartFile portfolioPhoto,
+            @RequestParam(value = "coverPhoto", required = false) MultipartFile coverPhoto) throws IOException {
 
-        // Upload ảnh
-        String portfolioPhotoUrl = imageUploadService.uploadImage(portfolioPhoto);
-        String coverPhotoUrl = imageUploadService.uploadImage(coverPhoto);
+        String portfolioPhotoUrl = null;
+        String coverPhotoUrl = null;
 
-        // Map các dữ liệu vào ProfileDTO
-        ProfileDTO profileDTO = new ProfileDTO();
-        profileDTO.setUser_id(SessionUtils.getCurrentUserId());
-        profileDTO.setFullName(fullName);
-        profileDTO.setBirthDate(birthDate);
-        profileDTO.setGender(gender);
-        profileDTO.setBio(bio);
-        profileDTO.setAddress(address);
-        profileDTO.setPortfolioPhoto(portfolioPhotoUrl);
-        profileDTO.setCoverPhoto(coverPhotoUrl);
+        if (portfolioPhoto != null && !portfolioPhoto.isEmpty()) {
+            portfolioPhotoUrl = imageUploadService.uploadImage(portfolioPhoto);
+        }
 
-        // Gọi service để lưu hoặc cập nhật profile
-        profileService.create(profileDTO);
+        if (coverPhoto != null && !coverPhoto.isEmpty()) {
+            coverPhotoUrl = imageUploadService.uploadImage(coverPhoto);
+        }
 
-        // Trả về ResponseDTO
-        ResponseDTO<Void> responseDTO = ResponseDTO.<Void>builder()
-                .status(201)
-                .message("Profile created successfully")
-                .build();
+        Profile profile = profileRepository.findByUserId(userId).get();
+        System.out.println("Before P: " + profile.getPortfolioPhoto());
+        System.out.println("Before C: " + profile.getCoverPhoto());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+        String afterP = profile.getPortfolioPhoto();
+        String afterC = profile.getCoverPhoto();
+
+        profile.setFullName(fullName);
+        profile.setBirthDate(birthDate);
+        profile.setGender(gender);
+        profile.setBio(bio);
+        profile.setAddress(address);
+
+        if(portfolioPhotoUrl != null) {
+            profile.setPortfolioPhoto(portfolioPhotoUrl);
+        } else {
+            profile.setPortfolioPhoto(afterP);
+        }
+        if(coverPhotoUrl != null) {
+            profile.setCoverPhoto(coverPhotoUrl);
+        } else {
+            profile.setCoverPhoto(afterC);
+        }
+        System.out.println("After P: " + profile.getPortfolioPhoto());
+        System.out.println("After C: " + profile.getCoverPhoto());
+
+        profileRepository.save(profile);
+
+        ResponseDTO<Void> responseDTO = new ResponseDTO<>();
+        responseDTO.setStatus(200);
+        responseDTO.setMessage("Profile updated successfully");
+
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .header("Location", "/profile")
+                .body(responseDTO);
     }
-
-
-
 
 }
 

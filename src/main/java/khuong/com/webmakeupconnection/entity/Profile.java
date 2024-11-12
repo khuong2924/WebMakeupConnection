@@ -2,10 +2,7 @@ package khuong.com.webmakeupconnection.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -15,6 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "profiles")
+@Data
+
 public class Profile {
 
     @Id
@@ -24,7 +23,9 @@ public class Profile {
 //    @Column(name = "user_id", nullable = false)
 //    private Long userId;
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private User user;
 
     private String fullName;
