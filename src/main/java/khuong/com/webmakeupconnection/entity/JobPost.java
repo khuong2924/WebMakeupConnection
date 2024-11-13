@@ -35,7 +35,7 @@ public class JobPost {
 
     private BigDecimal salary;
 
-    private String skillRequirements;
+    private String postPhoto;
 
     private String status = "Active";
 

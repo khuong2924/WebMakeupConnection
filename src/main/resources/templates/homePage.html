@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MakeupConnect Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script th:src="'https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js'"></script>
+
+
 </head>
 <body class="bg-gray-50">
 <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
@@ -18,8 +21,10 @@
                 <img src="/img/user.png" alt="Profile"
                      class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
             </a>
-            <img src="/img/alarm.png" alt="Notify"
-                 class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            <a href="/schedule">
+                <img src="/img/alarm.png" alt="Notify"
+                    class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
             <a href="/chatBox">
                 <img src="/img/message.png" alt="Notify"
                      class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
@@ -129,6 +134,91 @@
 
                 setInterval(showNextBanner, 5000);
             </script>
+            <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+                <h2 class="text-xl font-bold mb-6">Đăng bài</h2>
+                <button onclick="document.getElementById('createPost').classList.remove('hidden')" class="w-full bg-gray-50 hover:bg-gray-100 text-gray-500 font-medium px-6 py-4 rounded-lg border-2 border-dashed border-gray-300 transform transition-all duration-300 hover:border-gray-400 text-left">
+                    Viết bài đăng ở đây ...
+                </button>
+            </div>
+
+            <div id="createPost" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                <div class="relative top-10 mx-auto p-8 w-full max-w-2xl bg-white rounded-xl shadow-2xl transform transition-all">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Tạo bài đăng mới</h2>
+                        <button onclick="document.getElementById('createPost').classList.add('hidden')" class="text-gray-600 hover:text-gray-800">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <form class="space-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label for="title" class="block text-sm font-medium text-gray-700">Tiêu đề</label>
+                                <input type="text" id="title" placeholder="Nhập tiêu đề cho bài đăng của bạn" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label for="description" class="block text-sm font-medium text-gray-700">Nội dung công việc</label>
+                                <textarea id="description" rows="4" placeholder="Nhập mô tả nội dung công việc" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="time" class="block text-sm font-medium text-gray-700">Thời gian</label>
+                                    <input type="date" id="time" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+
+                                <div>
+                                    <label for="style" class="block text-sm font-medium text-gray-700">Kiểu Makeup</label>
+                                    <input type="text" id="style" placeholder="Chọn kiểu makeup" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                                <div>
+                                    <label for="location" class="block text-sm font-medium text-gray-700">Địa điểm</label>
+                                    <input type="text" id="location" placeholder="Nhập địa điểm" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="cost" class="block text-sm font-medium text-gray-700">Chi phí</label>
+                                    <input type="number" id="cost" placeholder="Nhập chi phí" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+
+
+                            <div class="space-y-4">
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                    <input type="file" id="photos" multiple accept="image/*" class="hidden" onchange="previewImages()">
+                                    <label for="photos" class="cursor-pointer">
+                                        <div class="space-y-2">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <div class="text-sm text-gray-600">Thêm hình ảnh vào bài đăng của bạn ở đây</div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <!-- Khu vực hiển thị ảnh đã chọn -->
+                                <div id="imagePreview" class="grid grid-cols-3 gap-4 hidden">
+                                    <!-- Các ảnh sẽ hiển thị ở đây -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end space-x-4">
+                            <button type="button" onclick="document.getElementById('createPost').classList.add('hidden')" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                                Hủy
+                            </button>
+                            <button type="submit" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-lg hover:from-pink-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Đăng
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
 
             <!-- Search Filters -->
@@ -142,14 +232,14 @@
                     </select>
                     <input type="date"
                            class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-pink-500 transition duration-200 bg-white hover:bg-pink-50 cursor-pointer">
-                    <select class="border p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">
-                        <option value="">Địa điểm</option>
-                        <option value="district1">Quận 1</option>
-                        <option value="district2">Quận 10</option>
-                        <option value="district3">Quận 7</option>
-                    </select>
-                    <input type="text" placeholder="Thời gian thực hiện"
-                           class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50">
+<!--                    <select class="border p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">-->
+<!--                        <option value="">Địa điểm</option>-->
+<!--                        <option value="district1">Quận 1</option>-->
+<!--                        <option value="district2">Quận 10</option>-->
+<!--                        <option value="district3">Quận 7</option>-->
+<!--                    </select>-->
+<!--                    <input type="text" placeholder="Thời gian thực hiện"-->
+<!--                           class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50">-->
                     <input type="number" placeholder="Chi phí thấp nhất"
                            class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">
                     <input type="number" placeholder="Chi phí cao nhất"
@@ -198,6 +288,7 @@
                                     <p class="text-sm text-gray-500">Celebrity MUA</p>
                                 </div>
                             </div>
+
                             <div class="rounded-lg overflow-hidden border-2 border-purple-100 shadow-md">
                                 <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702"
                                      alt="Lisa's Work"
@@ -253,6 +344,8 @@
                 </div>
             </div>
         </div>
+            </div>
+        </div>
 
         <script>
             let currentProfileIndex = 0;
@@ -277,9 +370,104 @@
                 }
             }
 
+            function previewImages() {
+                const input = document.getElementById('photos');
+                const preview = document.getElementById('imagePreview');
+                const files = input.files;
+
+                preview.innerHTML = '';
+
+                if (files.length > 0) {
+                    preview.classList.remove('hidden');
+
+                    Array.from(files).forEach(file => {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.classList.add('w-full', 'h-32', 'object-cover', 'rounded-lg');
+                            preview.appendChild(img);
+                        }
+
+                        reader.readAsDataURL(file);
+                    });
+                }
+            }
+
+            // var districts = document.getElementById("district");
+            // var wards = document.getElementById("ward");
+            // var Parameter = {
+            //     url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            //     method: "GET",
+            //     responseType: "application/json",
+            // };
+            //
+            //
+            // function renderDistrictAndWard(data) {
+            //     // Lọc dữ liệu chỉ lấy các quận huyện của TP.HCM (Id = '79')
+            //     const hoChiMinh = data.find(city => city.Id === '79'); // TP.HCM có ID là 79
+            //
+            //     // Hiển thị các quận huyện của TP.HCM
+            //     hoChiMinh.Districts.forEach(district => {
+            //         districts.options[districts.options.length] = new Option(district.Name, district.Id);
+            //     });
+            //
+            //     districts.onchange = function () {
+            //         wards.length = 1; // Reset phường xã khi quận huyện thay đổi
+            //         if (this.value !== "") {
+            //             const selectedDistrict = hoChiMinh.Districts.find(d => d.Id === this.value);
+            //
+            //             // Hiển thị các phường xã của quận huyện đã chọn
+            //             selectedDistrict.Wards.forEach(ward => {
+            //                 wards.options[wards.options.length] = new Option(ward.Name, ward.Id);
+            //             });
+            //         }
+            //     };
+            // }
+
+
+            var citis = document.getElementById("city");
+            var districts = document.getElementById("district");
+            var wards = document.getElementById("ward");
+            var Parameter = {
+                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                method: "GET",
+                responseType: "application/json",
+            };
+            var promise = axios(Parameter);
+            promise.then(function (result) {
+                renderCity(result.data);
+            });
+
+            function renderCity(data) {
+                for (const x of data) {
+                    citis.options[citis.options.length] = new Option(x.Name, x.Id);
+                }
+                citis.onchange = function () {
+                    district.length = 1;
+                    ward.length = 1;
+                    if(this.value != ""){
+                        const result = data.filter(n => n.Id === this.value);
+
+                        for (const k of result[0].Districts) {
+                            district.options[district.options.length] = new Option(k.Name, k.Id);
+                        }
+                    }
+                };
+                district.onchange = function () {
+                    ward.length = 1;
+                    const dataCity = data.filter((n) => n.Id === citis.value);
+                    if (this.value != "") {
+                        const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                        for (const w of dataWards) {
+                            wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                        }
+                    }
+                };
+            }
 
         </script>
-    </div>
-</div>
 </body>
 </html>

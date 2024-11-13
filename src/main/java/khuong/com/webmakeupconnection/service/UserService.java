@@ -31,6 +31,9 @@ public class UserService {
         // Tạo profile rỗng tương ứng với user
         Profile profile = new Profile();
         profile.setUser(savedUser);
+        profile.setPortfolioPhoto("https://res.cloudinary.com/dhp7ylyvh/image/upload/v1731477517/qljywamnvnwb8mi0rqjt.jpg");
+        profile.setCoverPhoto("https://res.cloudinary.com/dhp7ylyvh/image/upload/v1731477640/jthwtgc7gir7vczbloch.png");
+        profile.setFullName(user.getUsername());
 
         // Lưu profile vào database
         profileRepo.save(profile);

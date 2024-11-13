@@ -33,6 +33,13 @@
                 <a href="/chatBox">
                     <img src="/img/message.png" alt="Notify" class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
                 </a>
+                <a href="#" onclick="confirmLogout(event);" class="ml-auto">
+                    <img src="../img/log_out.png" alt="Logout"
+                         class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+                </a>
+                <form id="logoutForm" action="/logout" method="POST" style="display: none;">
+                </form>
+
             </div>
         </div>
     </nav>
@@ -170,6 +177,92 @@
 <!--                </div>-->
             </div>
 
+            <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+                <h2 class="text-xl font-bold mb-6">Đăng bài</h2>
+                <button onclick="document.getElementById('createPost').classList.remove('hidden')" class="w-full bg-gray-50 hover:bg-gray-100 text-gray-500 font-medium px-6 py-4 rounded-lg border-2 border-dashed border-gray-300 transform transition-all duration-300 hover:border-gray-400 text-left">
+                    Viết bài đăng ở đây ...
+                </button>
+            </div>
+
+            <div id="createPost" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                <div class="relative top-10 mx-auto p-8 w-full max-w-2xl bg-white rounded-xl shadow-2xl transform transition-all">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Tạo bài đăng mới</h2>
+                        <button onclick="document.getElementById('createPost').classList.add('hidden')" class="text-gray-600 hover:text-gray-800">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <form class="space-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label for="title" class="block text-sm font-medium text-gray-700">Tiêu đề</label>
+                                <input type="text" id="title" placeholder="Nhập tiêu đề cho bài đăng của bạn" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label for="description" class="block text-sm font-medium text-gray-700">Nội dung công việc</label>
+                                <textarea id="description" rows="4" placeholder="Nhập mô tả nội dung công việc" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="time" class="block text-sm font-medium text-gray-700">Thời gian</label>
+                                    <input type="date" id="time" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+
+                                <div>
+                                    <label for="style" class="block text-sm font-medium text-gray-700">Kiểu Makeup</label>
+                                    <input type="text" id="style" placeholder="Chọn kiểu makeup" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                                <div>
+                                    <label for="location" class="block text-sm font-medium text-gray-700">Địa điểm</label>
+                                    <input type="text" id="location" placeholder="Nhập địa điểm" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="cost" class="block text-sm font-medium text-gray-700">Chi phí</label>
+                                    <input type="number" id="cost" placeholder="Nhập chi phí" class="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+
+
+                            <div class="space-y-4">
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                    <input type="file" id="photos" multiple accept="image/*" class="hidden" onchange="previewImages()">
+                                    <label for="photos" class="cursor-pointer">
+                                        <div class="space-y-2">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <div class="text-sm text-gray-600">Thêm hình ảnh vào bài đăng của bạn ở đây</div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <!-- Khu vực hiển thị ảnh đã chọn -->
+                                <div id="imagePreview" class="grid grid-cols-3 gap-4 hidden">
+                                    <!-- Các ảnh sẽ hiển thị ở đây -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end space-x-4">
+                            <button type="button" onclick="document.getElementById('createPost').classList.add('hidden')" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                                Hủy
+                            </button>
+                            <button type="submit" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-lg hover:from-pink-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Đăng
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <!-- Posts Section -->
             <div class="mt-8">
                 <h2 class="text-xl font-semibold mb-4">Bài đăng</h2>
@@ -233,6 +326,15 @@
                 duration: [200, 150]
             });
         });
+
+        function confirmLogout(event) {
+            event.preventDefault();
+            const isConfirmed = confirm("Bạn có chắc muốn đăng xuất?");
+
+            if (isConfirmed) {
+                document.getElementById('logoutForm').submit();
+            }
+        }
 
         // Click ra ben ngoai -> Hien thong bao xac nhan
         function checkClickOutside(event) {

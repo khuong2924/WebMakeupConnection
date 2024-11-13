@@ -3,109 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Schedule Management</title>
+    <title>Quản lý lịch trình</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50">
-<div class="container mx-auto px-4 py-8 max-w-6xl">
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div class="border-b p-4 flex items-center justify-between bg-gradient-to-r from-blue-100 to-purple-100">
-            <div class="flex items-center space-x-4">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2" alt="Profile" class="w-12 h-12 rounded-full object-cover border-2 border-blue-200">
-                <div>
-                    <h2 class="text-lg font-semibold text-gray-800">Work Schedule Dashboard</h2>
-                    <span class="text-sm text-gray-600">Beauty Connect Professional</span>
-                </div>
+<nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-center space-x-12 py-4">
+            <a href="/home">
+                <img src="img/home.png" alt="Home"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <a href="/profile">
+                <img src="/img/user.png" alt="Profile"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <a href="/schedule">
+                <img src="/img/alarm.png" alt="Notify"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <a href="/chatBox">
+                <img src="/img/message.png" alt="Notify"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <a href="#" onclick="confirmLogout(event);" class="ml-auto">
+                <img src="../img/log_out.png" alt="Logout"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <form id="logoutForm" action="/logout" method="POST" style="display: none;">
+            </form>
+
+        </div>
+
+    </div>
+</nav>
+
+<div class="mt-20 mx-auto px-4">
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Main Schedule Area -->
+        <div class="lg:w-2/3 bg-white rounded-xl shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold text-gray-800">Lịch trình</h1>
             </div>
-            <div class="flex items-center space-x-4">
-                <button class="p-2 hover:bg-blue-100 rounded-full"><i class="fas fa-calendar-alt text-gray-600"></i></button>
-                <button class="p-2 hover:bg-blue-100 rounded-full"><i class="fas fa-bell text-gray-600"></i></button>
-                <button class="p-2 hover:bg-blue-100 rounded-full"><i class="fas fa-cog text-gray-600"></i></button>
+
+            <!-- Schedule Items -->
+            <div class="space-y-4">
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200 cursor-pointer group">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-lg font-semibold text-gray-800" contenteditable="false" id="title">Photo Shoot - Spring Collection</h3>
+                            </div>
+                            <p class="text-gray-600 mt-1" contenteditable="false" id="time">9:00 AM - 11:30 AM</p>
+                            <p class="text-gray-500 mt-2" contenteditable="false" id="notes">Notes: Outdoor shoot at Central Park</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="text-gray-400 hover:text-yellow-500 flag-btn" aria-label="Flag as priority">
+                                <i class="fas fa-flag"></i>
+                            </button>
+                            <button class="text-gray-400 hover:text-green-500 relative group" aria-label="Edit schedule">
+                                <i class="fas fa-money-bill-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hidden group-hover:block mt-4 bg-gray-50 p-4 rounded-lg">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fas fa-map-marker-alt text-gray-500"></i>
+                            <span class="text-gray-700" contenteditable="false" id="location">Location: Central Park, New York</span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fas fa-camera text-gray-500"></i>
+                            <span class="text-gray-700" contenteditable="false" id="equipment">Equipment: Professional DSLR, Lighting Kit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-lg font-semibold text-gray-800">Makeup Session - Wedding</h3>
+                            </div>
+                            <p class="text-gray-600 mt-1">2:00 PM - 4:00 PM</p>
+                            <p class="text-gray-500 mt-2">Notes: Bridal makeup preparation</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="text-gray-400 hover:text-yellow-500 flag-btn" aria-label="Flag as priority">
+                                <i class="fas fa-flag"></i>
+                            </button>
+                            <button class="text-gray-400 hover:text-green-500 relative group" aria-label="Edit schedule">
+                                <i class="fas fa-money-bill-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-lg font-semibold text-gray-800">Makeup Session - Wedding</h3>
+                            </div>
+                            <p class="text-gray-600 mt-1">2:00 PM - 4:00 PM</p>
+                            <p class="text-gray-500 mt-2">Notes: Bridal makeup preparation</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="text-gray-400 hover:text-yellow-500 flag-btn" aria-label="Flag as priority">
+                                <i class="fas fa-flag"></i>
+                            </button>
+                            <button class="text-gray-400 hover:text-green-500 relative group" aria-label="Edit schedule">
+                                <i class="fas fa-money-bill-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-            <div class="col-span-2">
-                <div class="bg-gray-50 rounded-lg p-4">
-                    <h3 class="text-lg font-semibold mb-4">Today's Schedule</h3>
-                    <div class="space-y-4">
-                        <div class="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h4 class="font-semibold">Bridal Makeup - Sarah Johnson</h4>
-                                    <p class="text-sm text-gray-600">10:00 AM - 11:30 AM</p>
-                                    <p class="text-sm text-gray-500 mt-2">Wedding venue makeup service</p>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="p-2 hover:bg-blue-100 rounded-full"><i class="fas fa-edit text-blue-600"></i></button>
-                                    <button class="p-2 hover:bg-red-100 rounded-full"><i class="fas fa-trash text-red-600"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-4 rounded-lg shadow border-l-4 border-green-500">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h4 class="font-semibold">Regular Styling - Emma Davis</h4>
-                                    <p class="text-sm text-gray-600">2:00 PM - 3:00 PM</p>
-                                    <p class="text-sm text-gray-500 mt-2">Hair styling and makeup</p>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="p-2 hover:bg-blue-100 rounded-full"><i class="fas fa-edit text-blue-600"></i></button>
-                                    <button class="p-2 hover:bg-red-100 rounded-full"><i class="fas fa-trash text-red-600"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Calendar Area -->
+        <div class="lg:w-1/3 bg-white rounded-xl shadow-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <button class="text-gray-600 hover:text-gray-800" id="prevMonth" aria-label="Previous month">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h2 id="monthTitle" class="text-xl font-semibold text-gray-800">March 2024</h2>
+                <button class="text-gray-600 hover:text-gray-800" id="nextMonth" aria-label="Next month">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
-
-            <div class="col-span-1">
-                <div class="bg-gray-50 rounded-lg p-4">
-                    <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
-                    <div class="space-y-3">
-                        <button class="w-full bg-blue-500 text-white rounded-lg p-3 hover:bg-blue-600 transition-colors flex items-center justify-center">
-                            <i class="fas fa-plus mr-2"></i> Add New Appointment
-                        </button>
-                        <button class="w-full bg-white border border-gray-300 rounded-lg p-3 hover:bg-gray-50 transition-colors flex items-center justify-center">
-                            <i class="fas fa-calendar-week mr-2"></i> View Weekly Schedule
-                        </button>
-                        <button class="w-full bg-white border border-gray-300 rounded-lg p-3 hover:bg-gray-50 transition-colors flex items-center justify-center">
-                            <i class="fas fa-clock mr-2"></i> Set Working Hours
-                        </button>
-                    </div>
-
-                    <div class="mt-6">
-                        <h3 class="text-lg font-semibold mb-4">Statistics</h3>
-                        <div class="space-y-4">
-                            <div class="bg-white p-4 rounded-lg shadow">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">Today's Appointments</span>
-                                    <span class="font-semibold">5</span>
-                                </div>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg shadow">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">Available Slots</span>
-                                    <span class="font-semibold">3</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="border-t p-4 bg-gray-50">
-            <div class="flex space-x-2 overflow-x-auto pb-2">
-                <button class="bg-white px-4 py-2 rounded-full text-sm border hover:bg-blue-100 whitespace-nowrap">Export Schedule</button>
-                <button class="bg-white px-4 py-2 rounded-full text-sm border hover:bg-blue-100 whitespace-nowrap">Sync Calendar</button>
-                <button class="bg-white px-4 py-2 rounded-full text-sm border hover:bg-blue-100 whitespace-nowrap">Team Schedule</button>
-                <button class="bg-white px-4 py-2 rounded-full text-sm border hover:bg-blue-100 whitespace-nowrap">Settings</button>
+            <!-- Calendar Grid -->
+            <div id="calendarGrid" class="grid grid-cols-7 gap-2 text-center">
+                <!-- Các ô ngày sẽ được tạo động -->
             </div>
         </div>
     </div>
 </div>
+<script>
+    function confirmLogout(event) {
+        event.preventDefault();
+        const isConfirmed = confirm("Bạn có chắc muốn đăng xuất?");
+
+        if (isConfirmed) {
+            document.getElementById('logoutForm').submit();
+        }
+    }
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+
+    // Mảng sự kiện (ngày có sự kiện sẽ được lưu vào đây)
+    const events = [
+        { day: 5, month: 2, year: 2024, title: "Photo Shoot - Spring Collection" },
+        { day: 10, month: 2, year: 2024, title: "Makeup Session - Wedding" },
+        { day: 15, month: 2, year: 2024, title: "Conference Meeting" }
+    ];
+
+    function renderCalendar() {
+        const firstDay = new Date(currentYear, currentMonth, 1);
+        const lastDay = new Date(currentYear, currentMonth + 1, 0);
+        const numberOfDays = lastDay.getDate();
+        const startingDay = firstDay.getDay();
+
+        document.getElementById("monthTitle").textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+        const calendarGrid = document.getElementById("calendarGrid");
+        calendarGrid.innerHTML = "";
+
+        const weekDays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+        weekDays.forEach(day => {
+            const dayElement = document.createElement("div");
+            dayElement.classList.add("text-gray-500", "font-medium");
+            dayElement.textContent = day;
+            calendarGrid.appendChild(dayElement);
+        });
+
+        for (let i = 0; i < startingDay; i++) {
+            const emptyDiv = document.createElement("div");
+            emptyDiv.classList.add("text-gray-400", "p-2");
+            calendarGrid.appendChild(emptyDiv);
+        }
+
+        for (let day = 1; day <= numberOfDays; day++) {
+            const dayDiv = document.createElement("div");
+            dayDiv.classList.add("p-2",  "hover:bg-gradient-to-r", "hover:from-pink-500", "hover:to-purple-500", "hover:text-white", "transition", "duration-200", "cursor-pointer", "rounded-full");
+            dayDiv.textContent = day;
+            dayDiv.setAttribute('data-day', day);
+
+            // Kiểm tra nếu ngày có sự kiện
+            const isEventDay = events.some(event => event.day === day && event.month === currentMonth && event.year === currentYear);
+            if (isEventDay) {
+                dayDiv.classList.add("bg-yellow-300", "font-semibold"); // Đánh dấu ngày có sự kiện
+            }
+
+            dayDiv.addEventListener("click", function() {
+                const selectedDate = new Date(currentYear, currentMonth, day);
+                const formattedDate = selectedDate.toLocaleDateString("en-GB");
+                document.querySelector("h1").textContent = `Lịch trình ngày ${formattedDate}`;
+
+                const allDays = calendarGrid.querySelectorAll("div[data-day]");
+                allDays.forEach(day => {
+                    day.classList.remove("bg-gradient-to-r", "from-pink-500", "to-purple-500", "text-white");
+                });
+                dayDiv.classList.add("bg-gradient-to-r", "from-pink-500", "to-purple-500", "text-white");
+            });
+
+            calendarGrid.appendChild(dayDiv);
+        }
+    }
+
+    document.getElementById("prevMonth").addEventListener("click", function() {
+        if (currentMonth === 0) {
+            currentMonth = 11;
+            currentYear--;
+        } else {
+            currentMonth--;
+        }
+        renderCalendar();
+    });
+
+    document.getElementById("nextMonth").addEventListener("click", function() {
+        if (currentMonth === 11) {
+            currentMonth = 0;
+            currentYear++;
+        } else {
+            currentMonth++;
+        }
+        renderCalendar();
+    });
+
+    renderCalendar();
+</script>
 </body>
 </html>

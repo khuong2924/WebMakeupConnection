@@ -7,6 +7,8 @@ import khuong.com.webmakeupconnection.repository.JobPostRepository;
 import khuong.com.webmakeupconnection.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,7 @@ public class JobPostService {
                     jobPost.getJobType(),
                     jobPost.getLocation(),
                     jobPost.getSalary(),
-                    jobPost.getSkillRequirements(),
+                    jobPost.getPostPhoto(),
                     jobPost.getStatus(),
                     jobPost.getCreatedAt()
             ));
@@ -49,7 +51,7 @@ public class JobPostService {
         jobPost.setJobType(jobPostDTO.getJobType());
         jobPost.setLocation(jobPostDTO.getLocation());
         jobPost.setSalary(jobPostDTO.getSalary());
-        jobPost.setSkillRequirements(jobPostDTO.getSkillRequirements());
+        jobPost.setPostPhoto(jobPostDTO.getPostPhoto());
         jobPost.setStatus(jobPostDTO.getStatus());
         jobPostRepository.save(jobPost);
     }
@@ -62,7 +64,7 @@ public class JobPostService {
         jobPost.setJobType(jobPostDTO.getJobType());
         jobPost.setLocation(jobPostDTO.getLocation());
         jobPost.setSalary(jobPostDTO.getSalary());
-        jobPost.setSkillRequirements(jobPostDTO.getSkillRequirements());
+        jobPost.setPostPhoto(jobPostDTO.getPostPhoto());
         jobPost.setStatus(jobPostDTO.getStatus());
         jobPostRepository.save(jobPost);
     }
@@ -78,7 +80,7 @@ public class JobPostService {
                 jobPost.getJobType(),
                 jobPost.getLocation(),
                 jobPost.getSalary(),
-                jobPost.getSkillRequirements(),
+                jobPost.getPostPhoto(),
                 jobPost.getStatus(),
                 jobPost.getCreatedAt()
         );
@@ -89,4 +91,13 @@ public class JobPostService {
                 .orElseThrow(() -> new RuntimeException("Job post not found"));
         jobPostRepository.deleteById(id);
     }
+
+    public List<JobPost> getByUserId(Long userId) {
+        return jobPostRepository.findByUserId(userId);
+    }
+
+
+
+
+
 }

@@ -66,4 +66,9 @@ public class HomeController {
     public String showAccountPage() {
         return "account";
     }
+
+    @GetMapping("/schedule")
+    public String showSchedulePage() {
+        return "schedules";
+    }
 }

@@ -19,7 +19,7 @@ public class JobPostDTO {
     private String jobType;
     private String location;
     private BigDecimal salary;
-    private String skillRequirements;
+    private String postPhoto;
     private String status;
     private LocalDateTime createdAt;
 }

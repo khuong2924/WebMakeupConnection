@@ -167,6 +167,8 @@ public class ProfileController {
 
         String portfolioPhotoUrl = null;
         String coverPhotoUrl = null;
+//        String portfolioPhotoUrl = "https://res.cloudinary.com/dhp7ylyvh/image/upload/v1731477517/qljywamnvnwb8mi0rqjt.jpg";
+//        String coverPhotoUrl = "https://res.cloudinary.com/dhp7ylyvh/image/upload/v1731477640/jthwtgc7gir7vczbloch.png";
 
         if (portfolioPhoto != null && !portfolioPhoto.isEmpty()) {
             portfolioPhotoUrl = imageUploadService.uploadImage(portfolioPhoto);
