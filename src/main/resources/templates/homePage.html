@@ -11,17 +11,22 @@
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex justify-center space-x-12 py-4">
             <a href="/home">
-                <img src="img/home.png" alt="Home" class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+                <img src="img/home.png" alt="Home"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
             </a>
             <a href="/profile">
-                <img src="/img/user.png" alt="Profile" class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+                <img src="/img/user.png" alt="Profile"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
             </a>
-            <img src="/img/alarm.png" alt="Notify" class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            <img src="/img/alarm.png" alt="Notify"
+                 class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
             <a href="/chatBox">
-                <img src="/img/message.png" alt="Notify" class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+                <img src="/img/message.png" alt="Notify"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
             </a>
             <a href="#" onclick="confirmLogout(event);" class="ml-auto">
-                <img src="../img/log_out.png" alt="Logout" class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+                <img src="../img/log_out.png" alt="Logout"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
             </a>
             <form id="logoutForm" action="/logout" method="POST" style="display: none;">
             </form>
@@ -36,19 +41,23 @@
         <!-- Left Sidebar -->
         <div class="w-1/4">
             <div class="relative inline-block w-full">
-                <button onclick="document.getElementById('registrationsList').classList.toggle('hidden'); document.getElementById('bookingButton').classList.toggle('mt-48')" class="w-full mb-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-4 rounded-lg hover:from-pink-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300">
+                <button onclick="document.getElementById('registrationsList').classList.toggle('hidden'); document.getElementById('bookingButton').classList.toggle('mt-48')"
+                        class="w-full mb-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-4 rounded-lg hover:from-pink-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300">
                     <span class="flex-1 text-center">Xem lời mời Booking</span>
                     <span class="ml-2">▼</span>
                 </button>
-                <div id="registrationsList" class="hidden absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1">
+                <div id="registrationsList"
+                     class="hidden absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1">
                     <ul class="py-2">
-                        <li onclick="toggleDetails(this)" class="group relative px-4 py-3 hover:bg-purple-50 cursor-pointer border-b border-gray-100">
+                        <li onclick="toggleDetails(this)"
+                            class="group relative px-4 py-3 hover:bg-purple-50 cursor-pointer border-b border-gray-100">
                             <div class="flex justify-between items-center">
                                 <span class="font-medium">Booking #1</span>
                             </div>
                             <div class="hidden group-hover:block absolute left-0 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-xl p-4 z-20">
                                 <div class="flex items-center mb-3">
-                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" class="w-10 h-10 rounded-full">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+                                         class="w-10 h-10 rounded-full">
                                     <div class="ml-3">
                                         <h4 class="font-semibold">Emma Wilson</h4>
                                         <p class="text-sm text-gray-500">@emmamua</p>
@@ -63,13 +72,15 @@
                                 </div>
                             </div>
                         </li>
-                        <li onclick="toggleDetails(this)" class="group relative px-4 py-3 hover:bg-purple-50 cursor-pointer border-b border-gray-100">
+                        <li onclick="toggleDetails(this)"
+                            class="group relative px-4 py-3 hover:bg-purple-50 cursor-pointer border-b border-gray-100">
                             <div class="flex justify-between items-center">
                                 <span class="font-medium">Booking #2</span>
                             </div>
                             <div class="hidden group-hover:block absolute left-0 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-xl p-4 z-20">
                                 <div class="flex items-center mb-3">
-                                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04" class="w-10 h-10 rounded-full">
+                                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04"
+                                         class="w-10 h-10 rounded-full">
                                     <div class="ml-3">
                                         <h4 class="font-semibold">Sophie Chen</h4>
                                         <p class="text-sm text-gray-500">@sophiemua</p>
@@ -87,7 +98,8 @@
                     </ul>
                 </div>
             </div>
-            <button id="bookingButton" class="w-full mb-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-4 rounded-lg hover:from-pink-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300">
+            <button id="bookingButton"
+                    class="w-full mb-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-4 rounded-lg hover:from-pink-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300">
                 <span class="flex-1 text-center">Xem danh sách đăng ký</span>
                 <span class="ml-2">▼</span>
             </button>
@@ -98,8 +110,10 @@
             <!-- Banner -->
             <div class="mb-6 rounded-xl overflow-hidden relative w-full h-48">
                 <div id="bannerCarousel" class="flex transition-transform duration-500 ease-in-out">
-                    <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937" alt="Makeup Banner 1" class="w-full h-48 object-cover flex-shrink-0">
-                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e" alt="Makeup Banner 2" class="w-full h-48 object-cover flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937" alt="Makeup Banner 1"
+                         class="w-full h-48 object-cover flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e" alt="Makeup Banner 2"
+                         class="w-full h-48 object-cover flex-shrink-0">
                 </div>
             </div>
 
@@ -126,16 +140,20 @@
                         <option value="fall">Make-up Fall</option>
                         <option value="winter">Make-up Winter</option>
                     </select>
-                    <input type="date" class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-pink-500 transition duration-200 bg-white hover:bg-pink-50 cursor-pointer">
+                    <input type="date"
+                           class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-pink-500 transition duration-200 bg-white hover:bg-pink-50 cursor-pointer">
                     <select class="border p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">
                         <option value="">Địa điểm</option>
                         <option value="district1">Quận 1</option>
                         <option value="district2">Quận 10</option>
                         <option value="district3">Quận 7</option>
                     </select>
-                    <input type="text" placeholder="Thời gian thực hiện" class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50">
-                    <input type="number" placeholder="Chi phí thấp nhất" class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">
-                    <input type="number" placeholder="Chi phí cao nhất" class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">
+                    <input type="text" placeholder="Thời gian thực hiện"
+                           class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50">
+                    <input type="number" placeholder="Chi phí thấp nhất"
+                           class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">
+                    <input type="number" placeholder="Chi phí cao nhất"
+                           class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">
                 </div>
                 <button class="w-full mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 rounded hover:from-pink-600 hover:to-purple-600 transition-all duration-300">
                     Tìm kiếm
@@ -144,28 +162,22 @@
 
             <!-- Posts -->
             <div class="space-y-6">
-                <div class="bg-white p-4 rounded-lg shadow-md">
-                    <div class="flex items-center mb-4">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" class="w-12 h-12 rounded-full">
-                        <div class="ml-4">
-                            <h3 class="font-semibold">Sarah Johnson</h3>
-                            <p class="text-gray-500 text-sm">Bridal Makeup Artist</p>
+                <!-- Lặp qua danh sách các jobPosts -->
+                <div th:each="jobPost : ${jobPosts}">
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <!-- Hiển thị thông tin người đăng công việc -->
+                        <div class="flex items-center mb-4">
+                            <img th:src="@{${jobPost.user.profile.portfolioPhoto}}" class="w-12 h-12 rounded-full" alt="User Avatar"> <!-- Thay thế avatarUrl với đường dẫn ảnh thực tế -->
+                            <div class="ml-4">
+                                <h3 class="font-semibold" th:text="${jobPost.user.profile.getFullName()}">Sarah Johnson</h3>  <!-- Thay thế với tên thực tế từ đối tượng User -->
+                                <p class="text-gray-500 text-sm" th:text="${jobPost.user.role}">Bridal Makeup Artist</p>  <!-- Thay thế với tiêu đề công việc -->
+                            </div>
                         </div>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796" class="w-full h-64 object-cover rounded-lg mb-4">
-                    <p class="text-gray-700">Specializing in elegant bridal makeup. Available for bookings!</p>
-                </div>
 
-                <div class="bg-white p-4 rounded-lg shadow-md">
-                    <div class="flex items-center mb-4">
-                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80" class="w-12 h-12 rounded-full">
-                        <div class="ml-4">
-                            <h3 class="font-semibold">Emily Davis</h3>
-                            <p class="text-gray-500 text-sm">Fashion Model</p>
-                        </div>
+                        <img th:src="@{${jobPost.user.profile.coverPhoto}}" class="w-full h-64 object-cover rounded-lg mb-4" alt="Job Image"> <!-- Thay thế với URL ảnh công việc thực tế -->
+
+                        <p class="text-gray-700" th:text="${jobPost.description}">Specializing in elegant bridal makeup. Available for bookings!</p>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1526379879527-8559ecfcaec0" class="w-full h-64 object-cover rounded-lg mb-4">
-                    <p class="text-gray-700">Looking for a makeup artist for upcoming fashion show.</p>
                 </div>
             </div>
         </div>
@@ -179,53 +191,62 @@
                         <!-- Profile 1 -->
                         <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl shadow-lg">
                             <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-all">
-                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb" class="w-14 h-14 rounded-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+                                     class="w-14 h-14 rounded-full object-cover">
                                 <div class="ml-4">
                                     <h4 class="font-semibold text-lg">Lisa Wong</h4>
                                     <p class="text-sm text-gray-500">Celebrity MUA</p>
                                 </div>
                             </div>
                             <div class="rounded-lg overflow-hidden border-2 border-purple-100 shadow-md">
-                                <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702" alt="Lisa's Work" class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
+                                <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702"
+                                     alt="Lisa's Work"
+                                     class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
                             </div>
                         </div>
                         <!-- Profile 2 -->
                         <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl shadow-lg">
                             <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-all">
-                                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04" class="w-14 h-14 rounded-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04"
+                                     class="w-14 h-14 rounded-full object-cover">
                                 <div class="ml-4">
                                     <h4 class="font-semibold text-lg">Maria Garcia</h4>
                                     <p class="text-sm text-gray-500">Fashion MUA</p>
                                 </div>
                             </div>
                             <div class="rounded-lg overflow-hidden border-2 border-purple-100 shadow-md">
-                                <img src="https://images.unsplash.com/photo-1542596594-649edbc13630" alt="Maria's Work" class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
+                                <img src="https://images.unsplash.com/photo-1542596594-649edbc13630" alt="Maria's Work"
+                                     class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
                             </div>
                         </div>
                         <!-- Profile 3 -->
                         <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl shadow-lg">
                             <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-all">
-                                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04" class="w-14 h-14 rounded-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04"
+                                     class="w-14 h-14 rounded-full object-cover">
                                 <div class="ml-4">
                                     <h4 class="font-semibold text-lg">Ja Khanh</h4>
                                     <p class="text-sm text-gray-500">IT MUA</p>
                                 </div>
                             </div>
                             <div class="rounded-lg overflow-hidden border-2 border-purple-100 shadow-md">
-                                <img src="https://images.unsplash.com/photo-1542596594-649edbc13630" alt="Ja's Work" class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
+                                <img src="https://images.unsplash.com/photo-1542596594-649edbc13630" alt="Ja's Work"
+                                     class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
                             </div>
                         </div>
                         <!-- Profile 4 -->
                         <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl shadow-lg">
                             <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-all">
-                                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04" class="w-14 h-14 rounded-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04"
+                                     class="w-14 h-14 rounded-full object-cover">
                                 <div class="ml-4">
                                     <h4 class="font-semibold text-lg">Ank Khua</h4>
                                     <p class="text-sm text-gray-500">IT MUA</p>
                                 </div>
                             </div>
                             <div class="rounded-lg overflow-hidden border-2 border-purple-100 shadow-md">
-                                <img src="https://images.unsplash.com/photo-1542596594-649edbc13630" alt="Ank's Work" class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
+                                <img src="https://images.unsplash.com/photo-1542596594-649edbc13630" alt="Ank's Work"
+                                     class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
                             </div>
                         </div>
                     </div>
@@ -255,8 +276,6 @@
                     document.getElementById('logoutForm').submit();
                 }
             }
-
-
 
 
         </script>

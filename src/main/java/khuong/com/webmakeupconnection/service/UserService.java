@@ -38,6 +38,11 @@ public class UserService {
         return savedUser;
     }
 
+    @Transactional
+    public User saveUser(User user) {
+        return userRepo.save(user);
+    }
+
     private List<UserDTO> mapToDto(List<User> listEntity) {
         List<UserDTO> list = new ArrayList<>();
         for (User user : listEntity) {

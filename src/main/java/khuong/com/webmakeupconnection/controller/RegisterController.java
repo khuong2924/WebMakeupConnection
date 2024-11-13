@@ -1,7 +1,8 @@
 package khuong.com.webmakeupconnection.controller;
 
-import khuong.com.webmakeupconnection.dto.UserDTO;
+import khuong.com.webmakeupconnection.entity.Profile;
 import khuong.com.webmakeupconnection.entity.User;
+import khuong.com.webmakeupconnection.repository.ProfileRepository;
 import khuong.com.webmakeupconnection.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterController {
 
     private final UserService userService;
+    private final ProfileRepository profileRepository;
 
-    public RegisterController(UserService userService) {
+    public RegisterController(UserService userService, ProfileRepository profileRepository) {
         this.userService = userService;
+        this.profileRepository = profileRepository;
     }
 
     @PostMapping("/register")
