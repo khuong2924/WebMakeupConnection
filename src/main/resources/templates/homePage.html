@@ -246,20 +246,47 @@
 
 
             <!-- Search Filters -->
+<!--            <div class="bg-white p-4 rounded-lg shadow-md mb-6">-->
+<!--                <div class="grid grid-cols-2 gap-4">-->
+<!--                    <form action="/search" method="get"> &lt;!&ndash; Thay đổi ở đây, form POST hoặc GET &ndash;&gt;-->
+<!--                        <input class="border p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer"-->
+<!--                               placeholder="Job type" name="jobType"/>-->
+
+<!--                        <input type="date" name="date"-->
+<!--                               class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-pink-500 transition duration-200 bg-white hover:bg-pink-50 cursor-pointer">-->
+
+<!--                        <input type="number" placeholder="Chi phí thấp nhất" name="startSalary"-->
+<!--                               class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">-->
+
+<!--                        <input type="number" placeholder="Chi phí cao nhất" name="endSalary"-->
+<!--                               class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">-->
+
+<!--                        <button type="submit"-->
+<!--                                class="w-full mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 rounded hover:from-pink-600 hover:to-purple-600 transition-all duration-300">-->
+<!--                            Tìm kiếm-->
+<!--                        </button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+
             <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-                <div class="grid grid-cols-2 gap-4">
-                    <form action="/search" method="get"> <!-- Thay đổi ở đây, form POST hoặc GET -->
-                        <input class="border p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer"
-                               placeholder="Job type" name="jobType"/>
+                <div class="grid grid-cols-1 gap-4"> <!-- Chuyển sang grid-cols-1 để form chiếm toàn bộ chiều rộng -->
+                    <form action="/search" method="get">
+                        <div class="flex gap-4"> <!-- Dùng Flexbox cho jobType và date ở cùng một hàng -->
+                            <input class="border p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer flex-1"
+                                   placeholder="Job type" name="jobType"/>
 
-                        <input type="date" name="date"
-                               class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-pink-500 transition duration-200 bg-white hover:bg-pink-50 cursor-pointer">
+                            <input type="date" name="date"
+                                   class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-pink-500 transition duration-200 bg-white hover:bg-pink-50 cursor-pointer flex-1">
+                        </div>
 
-                        <input type="number" placeholder="Chi phí thấp nhất" name="startSalary"
-                               class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">
+                        <div class="flex gap-4 mt-4"> <!-- Dùng Flexbox cho startSalary và endSalary ở cùng một hàng -->
+                            <input type="number" placeholder="Chi phí thấp nhất" name="startSalary"
+                                   class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer flex-1">
 
-                        <input type="number" placeholder="Chi phí cao nhất" name="endSalary"
-                               class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer">
+                            <input type="number" placeholder="Chi phí cao nhất" name="endSalary"
+                                   class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 hover:bg-pink-50 cursor-pointer flex-1">
+                        </div>
 
                         <button type="submit"
                                 class="w-full mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 rounded hover:from-pink-600 hover:to-purple-600 transition-all duration-300">
@@ -270,6 +297,38 @@
             </div>
 
 
+
+<!--            &lt;!&ndash; Posts &ndash;&gt;-->
+<!--            <div class="space-y-6">-->
+<!--                <div th:each="jobPost : ${jobPosts}">-->
+<!--                    <div class="bg-white p-4 rounded-lg shadow-md">-->
+<!--                        <div class="flex items-center mb-4">-->
+<!--                            <img th:src="@{${jobPost.user.profile.portfolioPhoto}}" class="w-12 h-12 rounded-full"-->
+<!--                                 alt="User Avatar">-->
+<!--                            <div class="ml-4">-->
+<!--                                <h3 class="font-semibold" th:text="${jobPost.user.profile.getFullName()}">Sarah-->
+<!--                                    Johnson</h3>-->
+<!--                                <p class="text-gray-500 text-sm" th:text="${jobPost.user.role}">Bridal Makeup Artist</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <img th:src="@{${jobPost.postPhoto}}"-->
+<!--                             class="w-full h-64 object-cover rounded-lg mb-4" alt="Job Image">-->
+
+<!--                        <p class="text-gray-700" th:text="${jobPost.description}">Specializing in elegant bridal makeup.-->
+<!--                            Available for bookings!</p>-->
+
+<!--                        &lt;!&ndash; Nút Follow &ndash;&gt;-->
+<!--                        <form action="/follow" method="post">-->
+<!--                            <input type="hidden" name="jobPostId" th:value="${jobPost.id}"/>-->
+<!--                            <button type="submit"-->
+<!--                                    class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">-->
+<!--                                Follow-->
+<!--                            </button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <!-- Posts -->
             <div class="space-y-6">
                 <div th:each="jobPost : ${jobPosts}">
@@ -278,29 +337,29 @@
                             <img th:src="@{${jobPost.user.profile.portfolioPhoto}}" class="w-12 h-12 rounded-full"
                                  alt="User Avatar">
                             <div class="ml-4">
-                                <h3 class="font-semibold" th:text="${jobPost.user.profile.getFullName()}">Sarah
-                                    Johnson</h3>
+                                <h3 class="font-semibold" th:text="${jobPost.user.profile.getFullName()}">Sarah Johnson</h3>
                                 <p class="text-gray-500 text-sm" th:text="${jobPost.user.role}">Bridal Makeup Artist</p>
                             </div>
+
+                            <!-- Nút Follow sẽ căn sang phải -->
+                            <form action="/follow" method="post" class="ml-auto">
+                                <input type="hidden" name="jobPostId" th:value="${jobPost.id}"/>
+                                <button type="submit"
+                                        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
+                                    Follow
+                                </button>
+                            </form>
                         </div>
 
                         <img th:src="@{${jobPost.postPhoto}}"
                              class="w-full h-64 object-cover rounded-lg mb-4" alt="Job Image">
 
-                        <p class="text-gray-700" th:text="${jobPost.description}">Specializing in elegant bridal makeup.
-                            Available for bookings!</p>
+                        <p class="text-gray-700" th:text="${jobPost.description}">Specializing in elegant bridal makeup. Available for bookings!</p>
 
-                        <!-- Nút Follow -->
-                        <form action="/follow" method="post">
-                            <input type="hidden" name="jobPostId" th:value="${jobPost.id}"/>
-                            <button type="submit"
-                                    class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
-                                Follow
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>
+
 
         </div>
 
