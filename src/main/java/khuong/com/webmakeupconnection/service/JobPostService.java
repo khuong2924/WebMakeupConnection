@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +101,7 @@ public class JobPostService {
     }
 
 
-
-
-
+    public List<JobPost> searchJobPosts(String jobType, LocalDateTime date, BigDecimal startSalary, BigDecimal endSalary) {
+        return jobPostRepository.searchJobPosts(jobType, date, startSalary, endSalary);
+    }
 }

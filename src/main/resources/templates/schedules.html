@@ -49,76 +49,56 @@
 
             <!-- Schedule Items -->
             <div class="space-y-4">
-                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200 cursor-pointer group">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h3 class="text-lg font-semibold text-gray-800" contenteditable="false" id="title">Photo Shoot - Spring Collection</h3>
+                <!-- Lặp qua danh sách notifications -->
+                <div th:each="notification : ${notifications}">
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200 cursor-pointer group">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <!-- Hiển thị tiêu đề công việc -->
+                                    <h3 class="text-lg font-semibold text-gray-800" contenteditable="false" th:text="${notification.jobPost.title}">Photo Shoot - Spring Collection</h3>
+                                </div>
+                                <p class="text-gray-600 mt-1" contenteditable="false">
+                                    <!-- Hiển thị thời gian công việc -->
+                                    <span th:text="${notification.jobPost.start}">9:00 AM - 11:30 AM</span>
+                                </p>
+                                <p class="text-gray-500 mt-2" contenteditable="false">
+                                    <!-- Hiển thị ghi chú công việc -->
+                                    <span th:text="${notification.jobPost.description}">Notes: Outdoor shoot at Central Park</span>
+                                </p>
                             </div>
-                            <p class="text-gray-600 mt-1" contenteditable="false" id="time">9:00 AM - 11:30 AM</p>
-                            <p class="text-gray-500 mt-2" contenteditable="false" id="notes">Notes: Outdoor shoot at Central Park</p>
-                        </div>
-                        <div class="flex gap-2">
-                            <button class="text-gray-400 hover:text-yellow-500 flag-btn" aria-label="Flag as priority">
-                                <i class="fas fa-flag"></i>
-                            </button>
-                            <button class="text-gray-400 hover:text-green-500 relative group" aria-label="Edit schedule">
-                                <i class="fas fa-money-bill-alt"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="hidden group-hover:block mt-4 bg-gray-50 p-4 rounded-lg">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="fas fa-map-marker-alt text-gray-500"></i>
-                            <span class="text-gray-700" contenteditable="false" id="location">Location: Central Park, New York</span>
-                        </div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="fas fa-camera text-gray-500"></i>
-                            <span class="text-gray-700" contenteditable="false" id="equipment">Equipment: Professional DSLR, Lighting Kit</span>
-                        </div>
-                    </div>
-                </div>
+                            <div class="flex gap-2">
+                                <!-- Nút đánh dấu (flag) -->
+                                <form th:action="@{/flagNotification}" method="post">
+                                    <input type="hidden" name="notificationId" th:value="${notification.id}" />
+                                    <button type="submit"
+                                            class="text-gray-400 hover:text-yellow-500 flag-btn"
+                                            aria-label="Flag as priority"
+                                            th:class="${notification.isFlagged} ? 'text-yellow-500' : 'text-gray-400'">
+                                        <i class="fas fa-flag"></i>
+                                    </button>
+                                </form>
 
-                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h3 class="text-lg font-semibold text-gray-800">Makeup Session - Wedding</h3>
+                                <!-- Nút chỉnh sửa (edit) -->
+                                <button class="text-gray-400 hover:text-green-500 relative group" aria-label="Edit schedule">
+                                    <i class="fas fa-money-bill-alt"></i>
+                                </button>
                             </div>
-                            <p class="text-gray-600 mt-1">2:00 PM - 4:00 PM</p>
-                            <p class="text-gray-500 mt-2">Notes: Bridal makeup preparation</p>
                         </div>
-                        <div class="flex gap-2">
-                            <button class="text-gray-400 hover:text-yellow-500 flag-btn" aria-label="Flag as priority">
-                                <i class="fas fa-flag"></i>
-                            </button>
-                            <button class="text-gray-400 hover:text-green-500 relative group" aria-label="Edit schedule">
-                                <i class="fas fa-money-bill-alt"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h3 class="text-lg font-semibold text-gray-800">Makeup Session - Wedding</h3>
+                        <div class="hidden group-hover:block mt-4 bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fas fa-map-marker-alt text-gray-500"></i>
+                                <span class="text-gray-700" contenteditable="false" th:text="${notification.jobPost.location}">Location: Central Park, New York</span>
                             </div>
-                            <p class="text-gray-600 mt-1">2:00 PM - 4:00 PM</p>
-                            <p class="text-gray-500 mt-2">Notes: Bridal makeup preparation</p>
-                        </div>
-                        <div class="flex gap-2">
-                            <button class="text-gray-400 hover:text-yellow-500 flag-btn" aria-label="Flag as priority">
-                                <i class="fas fa-flag"></i>
-                            </button>
-                            <button class="text-gray-400 hover:text-green-500 relative group" aria-label="Edit schedule">
-                                <i class="fas fa-money-bill-alt"></i>
-                            </button>
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fas fa-camera text-gray-500"></i>
+                                <span class="text-gray-700" contenteditable="false" th:text="${notification.jobPost.description}">Equipment: Professional DSLR, Lighting Kit</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Calendar Area -->
@@ -139,7 +119,13 @@
         </div>
     </div>
 </div>
+
+<input type="hidden" id="notificationDatesHidden" th:value="${notificationDates}">
+
 <script>
+
+    const notificationDates = /*[[${notificationDates}]]*/ [];
+    console.log(notificationDates)
     function confirmLogout(event) {
         event.preventDefault();
         const isConfirmed = confirm("Bạn có chắc muốn đăng xuất?");
@@ -154,12 +140,7 @@
     let currentMonth = currentDate.getMonth();
     let currentYear = currentDate.getFullYear();
 
-    // Mảng sự kiện (ngày có sự kiện sẽ được lưu vào đây)
-    const events = [
-        { day: 5, month: 2, year: 2024, title: "Photo Shoot - Spring Collection" },
-        { day: 10, month: 2, year: 2024, title: "Makeup Session - Wedding" },
-        { day: 15, month: 2, year: 2024, title: "Conference Meeting" }
-    ];
+
 
     function renderCalendar() {
         const firstDay = new Date(currentYear, currentMonth, 1);
@@ -192,10 +173,11 @@
             dayDiv.textContent = day;
             dayDiv.setAttribute('data-day', day);
 
-            // Kiểm tra nếu ngày có sự kiện
-            const isEventDay = events.some(event => event.day === day && event.month === currentMonth && event.year === currentYear);
-            if (isEventDay) {
-                dayDiv.classList.add("bg-yellow-300", "font-semibold"); // Đánh dấu ngày có sự kiện
+
+            const isNotificationDay = notificationDates.includes(new Date(currentYear, currentMonth, day).toLocaleDateString('en-GB'));
+            console.log(notificationDates)
+            if (isNotificationDay) {
+                dayDiv.classList.add("bg-yellow-300", "font-semibold");
             }
 
             dayDiv.addEventListener("click", function() {
@@ -208,6 +190,10 @@
                     day.classList.remove("bg-gradient-to-r", "from-pink-500", "to-purple-500", "text-white");
                 });
                 dayDiv.classList.add("bg-gradient-to-r", "from-pink-500", "to-purple-500", "text-white");
+
+                const formattedDateForBackend = selectedDate.toISOString().split('T')[0]; // Format date as 'YYYY-MM-DD'
+                window.location.href = `/schedule?date=${formattedDateForBackend}`;
+
             });
 
             calendarGrid.appendChild(dayDiv);

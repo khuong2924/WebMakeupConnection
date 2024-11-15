@@ -12,6 +12,7 @@ import khuong.com.webmakeupconnection.repository.UserRepository;
 import khuong.com.webmakeupconnection.service.JobPostService;
 import khuong.com.webmakeupconnection.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,8 @@ public class JobPostController {
         dto.setStatus(200);
         return dto;
     }
+
+
 
     @GetMapping("/all")
     public ResponseDTO<List<JobPostDTO>> getAll() {
