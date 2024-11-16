@@ -64,7 +64,11 @@
                                 </p>
                                 <p class="text-gray-500 mt-2" contenteditable="false">
                                     <!-- Hiển thị ghi chú công việc -->
-                                    <span th:text="${notification.jobPost.description}">Notes: Outdoor shoot at Central Park</span>
+                                    <span id="description" th:text="${notification.jobPost.description}">Notes: Outdoor shoot at Central Park</span>
+                                </p>
+                                <p class="text-gray-500 mt-2" contenteditable="false">
+                                    <!-- Hiển thị lương công việc -->
+                                    <span id="amount" th:text="${notification.jobPost.salary}">120000</span>
                                 </p>
                             </div>
                             <div class="flex gap-2">
@@ -79,10 +83,17 @@
                                     </button>
                                 </form>
 
-                                <!-- Nút chỉnh sửa (edit) -->
-                                <button class="text-gray-400 hover:text-green-500 relative group" aria-label="Edit schedule">
-                                    <i class="fas fa-money-bill-alt"></i>
-                                </button>
+                                <!-- Nút thanh toán -->
+                                <form th:action="@{/payment/create}" method="post">
+                                    <input type="hidden" name="notificationId" th:value="${notification.id}" />
+                                    <input type="hidden" name="method" value="paypal" /> <!-- Thêm phương thức thanh toán -->
+                                    <input type="hidden" name="amount" th:value="${notification.jobPost.salary}" />
+                                    <input type="hidden" name="currency" value="USD" />
+                                    <input type="hidden" name="description" th:value="${notification.jobPost.description}" />
+                                    <button type="submit" class="text-gray-400 hover:text-green-500 relative group" aria-label="Edit schedule">
+                                        <i class="fas fa-money-bill-alt"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <div class="hidden group-hover:block mt-4 bg-gray-50 p-4 rounded-lg">
@@ -92,13 +103,12 @@
                             </div>
                             <div class="flex items-center gap-2 mb-2">
                                 <i class="fas fa-camera text-gray-500"></i>
-                                <span class="text-gray-700" contenteditable="false" th:text="${notification.jobPost.description}">Equipment: Professional DSLR, Lighting Kit</span>
+                                <span class="text-gray-700" contenteditable="false" th:text="${notification.jobPost.jobType}">Equipment: Professional DSLR, Lighting Kit</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Calendar Area -->

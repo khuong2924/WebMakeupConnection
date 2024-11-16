@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AZJgEpByd4766Br06_44Cofz8zBy-mE8ZdxyvNMhMvjwe0JAciQci1xSuLaEWt3B4Zc-f2JYsGBVES0_&currency=USD"></script>
+
+</head>
+<body class="bg-gray-100 min-h-screen">
+<!-- Payment Page -->
+
+<nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-center space-x-12 py-4">
+            <a href="/home">
+                <img src="img/home.png" alt="Home"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <a href="/profile">
+                <img src="/img/user.png" alt="Profile"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <a href="/schedule">
+                <img src="/img/alarm.png" alt="Notify"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <a href="/chatBox">
+                <img src="/img/message.png" alt="Notify"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <a href="#" onclick="confirmLogout(event);" class="ml-auto">
+                <img src="../img/log_out.png" alt="Logout"
+                     class="h-6 w-6 transition-transform duration-200 transform hover:scale-110">
+            </a>
+            <form id="logoutForm" action="/logout" method="POST" style="display: none;">
+            </form>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div id="payment-page" class="p-6 max-w-4xl mx-auto mt-10">
+    <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+        <div class="p-6 border-b border-gray-200 bg-gradient-to-r from-purple-500 to-pink-500">
+            <h2 class="text-2xl font-bold text-white">Confirm Payment</h2>
+        </div>
+        <div class="p-6 space-y-6">
+            <!-- Job Details Section -->
+            <div class="border-b pb-6">
+                <h3 class="text-lg font-semibold mb-4">Makeup Artist Job Details</h3>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="text-md font-medium text-gray-700">Title</h4>
+                        <p class="text-gray-600"><span th:text="${notification.jobPost.title}">Job Title</span></p>
+                    </div>
+                    <div>
+                        <h4 class="text-md font-medium text-gray-700">Description</h4>
+                        <p class="text-gray-600"><span th:text="${notification.jobPost.description}">Description</span></p>
+                    </div>
+                    <div>
+                        <h3 class="text-md font-medium text-gray-700">Total</h3>
+                        <p class="text-gray-600"><span th:text="${notification.jobPost.salary}"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full">
+                <button id="paypal-button-container" onclick="simulatePayment()" class="group w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-400 hover:to-blue-500 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center shadow-lg hover:shadow-xl">
+                    <img src= "https://res.cloudinary.com/dhp7ylyvh/image/upload/v1731693126/x2bocs7lu3lizvarcp0g.png" alt="PayPal" class="w-6 h-6 mr-2">
+                    Pay with PayPal
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Failed Page -->
+<!--<div id="failed-page" class="hidden p-6 max-w-4xl mx-auto mt-10">-->
+<!--    <div class="bg-white rounded-lg shadow-xl overflow-hidden">-->
+<!--        <div class="p-6 bg-red-500 text-center">-->
+<!--            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">-->
+<!--                <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">-->
+<!--                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>-->
+<!--                </svg>-->
+<!--            </div>-->
+<!--            <h2 class="text-2xl font-bold text-white">Payment Failed</h2>-->
+<!--        </div>-->
+<!--        <div class="p-6 space-y-6 text-center">-->
+<!--            <p class="text-gray-600">We're sorry, but your payment could not be processed. Please try again or use a different payment method.</p>-->
+<!--            <div class="flex justify-center space-x-4">-->
+<!--                <button onclick="retryPayment()" class="px-6 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition">-->
+<!--                    Try Again-->
+<!--                </button>-->
+<!--                <button onclick="contactSupport()" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">-->
+<!--                    Contact Support-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<script>
+    function simulatePayment() {
+        // Giả lập xác suất thành công hoặc thất bại.
+        const isSuccess = Math.random() > 0.5;
+
+        document.getElementById('payment-page').classList.add('hidden');
+
+        if (isSuccess) {
+            document.getElementById('success-page').classList.remove('hidden');
+            document.getElementById('current-date').textContent = `Date: ${new Date().toLocaleDateString()}`;
+        } else {
+            // Hiển thị trang Failed Page nếu thanh toán thất bại.
+            document.getElementById('failed-page').classList.remove('hidden');
+        }
+    }
+
+    function retryPayment() {
+        // Quay lại Payment Page.
+        document.getElementById('failed-page').classList.add('hidden');
+        document.getElementById('payment-page').classList.remove('hidden');
+    }
+
+    function goToDashboard() {
+        // Chuyển hướng đến Dashboard hoặc trang chính khác.
+        window.location.href = '/dashboard';
+    }
+
+    function contactSupport() {
+        // Mở email liên hệ.
+        window.location.href = 'mailto:support@example.com';
+    }
+
+
+    paypal.Buttons({
+        createOrder: function (data, actions) {
+            // Tạo đơn hàng
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '100.00' // Tổng giá trị thanh toán
+                    }
+                }]
+            });
+        },
+        onApprove: function (data, actions) {
+            // Xử lý sau khi thanh toán thành công
+            return actions.order.capture().then(function (details) {
+                alert('Transaction completed by ' + details.payer.name.given_name);
+                console.log(details); // Kiểm tra chi tiết thanh toán
+            });
+        },
+        onError: function (err) {
+            // Xử lý lỗi
+            console.error(err);
+            alert('An error occurred during the payment process.');
+        }
+    }).render('#paypal-button-container');
+</script>
+
+</body>
+</html>

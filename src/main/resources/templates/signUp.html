@@ -115,7 +115,14 @@
             },
             body: JSON.stringify(formData)
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.ok) {
+                    response.json();
+                    window.location.href = '/login';
+                } else {
+                    console.error('Đăng ký thất bại');
+                }
+            })
             .then(data => console.log(data))
             .catch(error => console.error('Error:', error));
     })
