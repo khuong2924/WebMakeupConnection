@@ -100,12 +100,13 @@
             <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-pink-50" id="chat-messages">
                 <!-- Các tin nhắn sẽ được hiển thị ở đây -->
             </div>
-            <!-- Quick Responses -->
+
             <div class="p-2 border-t border-b bg-gradient-to-r from-pink-200 to-purple-200 flex space-x-2 overflow-x-auto">
-                <button class="px-4 py-2 bg-white rounded-full text-sm border hover:bg-pink-100 text-purple-700 whitespace-nowrap">Available for booking</button>
-                <button class="px-4 py-2 bg-white rounded-full text-sm border hover:bg-pink-100 text-purple-700 whitespace-nowrap">Send portfolio</button>
-                <button class="px-4 py-2 bg-white rounded-full text-sm border hover:bg-pink-100 text-purple-700 whitespace-nowrap">Request consultation</button>
+                <button class="quick-response px-4 py-2 bg-white rounded-full text-sm border hover:bg-pink-100 text-purple-700 whitespace-nowrap">Available for booking</button>
+                <button class="quick-response px-4 py-2 bg-white rounded-full text-sm border hover:bg-pink-100 text-purple-700 whitespace-nowrap">Send portfolio</button>
+                <button class="quick-response px-4 py-2 bg-white rounded-full text-sm border hover:bg-pink-100 text-purple-700 whitespace-nowrap">Request consultation</button>
             </div>
+
             <!-- Input Area -->
             <div class="p-4 bg-white border-t">
                 <div class="flex items-center space-x-4">
@@ -142,6 +143,8 @@
     // Gửi tin nhắn
     function sendMessage() {
         var messageInput = document.getElementById('message-input').value;
+        if (messageInput.trim() === '') return; // Nếu không có nội dung tin nhắn, không gửi
+
         var message = {
             senderId: 1, // Thay đổi theo người gửi
             receiverId: 2, // Thay đổi theo người nhận
@@ -163,11 +166,28 @@
     // Hiển thị tin nhắn lên giao diện
     function displayMessage(message) {
         var messageContainer = document.getElementById('chat-messages');
+
+        // Kiểm tra nếu tin nhắn là của người gửi
+        var isSender = message.senderId === 1; // Thay đổi ID người gửi cho phù hợp
+
         var messageElement = document.createElement('div');
         messageElement.classList.add('flex', 'items-start', 'space-x-2');
 
+        // Căn chỉnh tin nhắn bên phải (người gửi) hoặc bên trái (người nhận)
+        if (isSender) {
+            messageElement.classList.add('justify-end');
+        }
+
         var messageContent = document.createElement('div');
-        messageContent.classList.add('bg-purple-100', 'rounded-lg', 'p-3', 'max-w-md');
+        messageContent.classList.add('rounded-lg', 'p-3', 'max-w-md');
+
+        // Cài đặt màu nền cho tin nhắn người gửi và người nhận
+        if (isSender) {
+            messageContent.classList.add('bg-pink-500', 'text-white');
+        } else {
+            messageContent.classList.add('bg-purple-100', 'text-purple-700');
+        }
+
         messageContent.innerHTML = message.content;
         messageElement.appendChild(messageContent);
 
@@ -180,7 +200,8 @@
         messageContainer.appendChild(messageElement);
     }
 
-    // Đảm bảo rằng người dùng có thể gửi tin nhắn khi nhấn Enter
+
+    // Đảm bảo rằng người dùng có thể gửi tin nhắn khi nhấn Enter hoặc click nút SendMessage
     document.getElementById('message-input').addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
             sendMessage();
@@ -189,55 +210,7 @@
 
     // Sự kiện click nút gửi tin nhắn
     document.getElementById('send-message').addEventListener('click', function() {
-        const messageInput = document.getElementById('message-input');
-        const message = messageInput.value.trim();
-
-        if (message) {
-            const messageContainer = document.createElement('div');
-            messageContainer.classList.add('flex', 'items-start', 'justify-end', 'space-x-2');
-
-            const messageBubble = document.createElement('div');
-            messageBubble.classList.add('bg-pink-500', 'text-white', 'rounded-lg', 'p-3', 'max-w-md');
-
-            const messageText = document.createElement('p');
-            messageText.textContent = message;
-            messageBubble.appendChild(messageText);
-
-            messageContainer.appendChild(messageBubble);
-            document.getElementById('chat-messages').appendChild(messageContainer);
-
-            // Clear input after sending
-            messageInput.value = '';
-            messageInput.focus();
-        }
-    });
-
-    // Đảm bảo rằng người dùng có thể gửi tin nhắn khi nhấn Enter
-    document.getElementById('message-input').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            const messageInput = document.getElementById('message-input');
-            const message = messageInput.value.trim();
-
-            if (message) {
-                const messageContainer = document.createElement('div');
-                messageContainer.classList.add('flex', 'items-start', 'justify-end', 'space-x-2');
-
-                const messageBubble = document.createElement('div');
-                messageBubble.classList.add('bg-pink-500', 'text-white', 'rounded-lg', 'p-3', 'max-w-md');
-
-                const messageText = document.createElement('p');
-                messageText.textContent = message;
-                messageBubble.appendChild(messageText);
-
-                messageContainer.appendChild(messageBubble);
-                document.getElementById('chat-messages').appendChild(messageContainer);
-
-                // Clear input after sending
-                messageInput.value = '';
-                messageInput.focus();
-            }
-
-        }
+        sendMessage();
     });
 
 

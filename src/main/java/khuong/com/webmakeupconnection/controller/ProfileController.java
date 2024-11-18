@@ -47,25 +47,6 @@ public class ProfileController {
     @GetMapping
     public ResponseDTO<List<ProfileDTO>> getAllProfiles() {
         ResponseDTO<List<ProfileDTO>> responseDTO = new ResponseDTO<>();
-//        User user = SessionUtils.getCurrentUser();
-//        if (user == null) {
-//            responseDTO.setStatus(400);
-//            responseDTO.setMessage("User is not logged in.");
-//            return responseDTO;
-//        }
-        // Lấy user_id từ đối tượng User
-//        Long userId = SessionUtils.getCurrentUserId();
-//        // Lấy profile từ ProfileService theo userId
-//        Optional<Profile> profileOptional = profileRepository.findByUserId(userId);
-//
-//        if (!profileOptional.isPresent()) {
-//            responseDTO.setStatus(404);
-//            responseDTO.setMessage("Profile not found for the user.");
-//            return responseDTO;
-//        }
-//        ProfileDTO profileDTO = profileService.mapToDto(Collections.singletonList(profileOptional.get())).get(0);
-//        responseDTO.setData(Collections.singletonList(profileDTO));
-//        responseDTO.setStatus(200);
         responseDTO.setData(profileService.getAll());
         responseDTO.setStatus(200);
 

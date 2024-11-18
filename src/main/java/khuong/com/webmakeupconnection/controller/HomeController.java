@@ -5,6 +5,7 @@ import khuong.com.webmakeupconnection.config.SessionUtils;
 import khuong.com.webmakeupconnection.dto.ProfileDTO;
 import khuong.com.webmakeupconnection.entity.JobPost;
 import khuong.com.webmakeupconnection.entity.Notification;
+import khuong.com.webmakeupconnection.entity.Profile;
 import khuong.com.webmakeupconnection.entity.User;
 import khuong.com.webmakeupconnection.repository.JobPostRepository;
 import khuong.com.webmakeupconnection.repository.NotificationRepository;
@@ -143,7 +144,6 @@ public class HomeController {
     @PostMapping("/follow")
     public String followJobPost(@RequestParam("jobPostId") Long jobPostId, HttpSession session) {
         Long userId = SessionUtils.getCurrentUserId();
-
         User user = userRepository.findById(userId).orElse(null);
         if (user != null) {
             JobPost jobPost = jobPostRepository.findById(jobPostId).orElse(null);
@@ -171,7 +171,7 @@ public class HomeController {
             Notification notification = notificationRepository.findById(notificationId)
                     .orElseThrow(() -> new IllegalArgumentException("Notification not found"));
 
-            notification.setFlagged(!notification.isFlagged());  // Toggle flag state
+            notification.setFlagged(!notification.isFlagged());
             notificationRepository.save(notification);
 
             // Add success message
@@ -212,10 +212,8 @@ public class HomeController {
         return "signUp";
     }
 
-    @GetMapping("/chatBox")
-    public String showChatBoxPage() {
-        return "chatBox";
-    }
+
+
 
     @GetMapping("/account")
     public String showAccountPage() {

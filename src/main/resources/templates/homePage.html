@@ -38,7 +38,6 @@
             </a>
             <form id="logoutForm" action="/logout" method="POST" style="display: none;">
             </form>
-
         </div>
 
     </div>
@@ -105,12 +104,48 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+
+
             <button id="bookingButton"
-                    class="w-full mb-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-4 rounded-lg hover:from-pink-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300">
+                    class="w-full mb-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-4 rounded-lg hover:from-pink-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-300 focus:ring-4 focus:ring-indigo-300 focus:outline-none" onclick="document.getElementById('userDataContainer').classList.toggle('hidden')">
                 <span class="flex-1 text-center">View list register in your post</span>
                 <span class="ml-2">▼</span>
             </button>
+
+                <div id="userDataContainer" class="hidden mt-8 grid gap-6 grid-cols-1" role="region" aria-label="User data list">
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300" tabindex="0">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e" alt="User profile" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">John Doe</h3>
+                        <p class="text-gray-600 mb-4">Frontend Developer passionate about creating beautiful user interfaces.</p>
+                        <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+                            <span>Job Post title: makeup autumn</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="w-1/2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">Accept</button>
+                            <button class="w-1/2 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">Refuse</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300" tabindex="0">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="User profile" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Sarah Wilson</h3>
+                        <p class="text-gray-600 mb-4">UX Designer specializing in user research and interaction design.</p>
+                        <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
+                            <span>Job Post title: classic make</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="w-1/2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">Accept</button>
+                            <button class="w-1/2 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">Refuse</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
         </div>
 
         <!-- Main Content -->
@@ -296,47 +331,36 @@
 
             <!-- Modal -->
             <div id="confirmModal" class=" fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
-
-                <div class="space-y-6 bg-white p-6 rounded-lg shadow-lg z-100">
+                <form id="applyForm" method="POST" action="/apply" enctype="multipart/form-data" class="space-y-6 bg-white p-6 rounded-lg shadow-lg z-100">
                     <div>
                         <label for="textInput" class="block text-sm font-medium text-gray-700 mb-2">Apply Content</label>
-                        <input type="text" id="textInput" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" placeholder="Enter your content here">
+                        <input type="text" id="textInput" name="content" required
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               placeholder="Enter your content here">
                     </div>
-
                     <div>
                         <label for="imageInput" class="block text-sm font-medium text-gray-700 mb-2">Apply Images</label>
                         <div class="relative">
-                            <input type="file" id="imageInput" accept="image/*" class="hidden" onchange="previewImagesRegistry(event)">
+                            <input type="file" id="imageInput" name="images" accept="image/*" class="hidden">
                             <label for="imageInput" class="w-full flex items-center justify-center px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 cursor-pointer transition-colors">
                                 <div class="text-center">
                                     <i class="fas fa-cloud-upload-alt text-2xl text-gray-400 mb-2"></i>
                                     <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
                                 </div>
                             </label>
-                            <div id="imageRegistry" class="mt-4 hidden">
-                                <img src="" alt="Preview" class="max-h-40 rounded-lg mx-auto">
-                            </div>
                         </div>
                     </div>
 
-                    <!-- Khu vực hiển thị ảnh đã chọn -->
-                    <div id="imagePreviewRegistry" class="grid grid-cols-3 gap-4 hidden">
-                        <!-- Các ảnh sẽ hiển thị ở đây -->
-                    </div>
-
-
                     <div class="flex justify-end gap-4">
-                        <button id="cancelButton" class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        <button type="button" id="cancelButton" class="w-full text-white bg-gray-500 hover:bg-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                             Cancel
                         </button>
-                        <button id="confirmButton" class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-                            Registry
+                        <button type="submit" id="confirmButton" class="w-full text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                            Apply
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
-
-
             <!-- Posts -->
             <div class="space-y-6">
                 <div th:each="jobPost : ${jobPosts}">
@@ -349,19 +373,24 @@
                                 <p class="text-gray-500 text-sm" th:text="${jobPost.user.role}">Bridal Makeup Artist</p>
                             </div>
 
-                            <!-- Form Follow -->
-<!--                            <form action="/follow" method="post" class="ml-auto">-->
-<!--                                <input type="hidden" name="jobPostId" th:value="${jobPost.id}"/>-->
-<!--                                <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 follow-button">-->
-<!--                                    Registry-->
-<!--                                </button>-->
-<!--                            </form>-->
-                            <form action="/follow" method="post" class="ml-auto">
-                                <input type="hidden" name="jobPostId" th:value="${jobPost.id}"/>
-                                <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-md text-xs px-4 py-2 transition duration-300 ease-in-out  hover:scale-105 follow-button">
-                                    Registry
+<!--                            // button xem thông tin cụ thể của bài đăng:-->
+                            <div class="ml-auto flex gap-2">
+                                <!-- View Detail Button -->
+                                <button id="viewButton" onclick="toggleModal(true)" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-md text-xs px-4 py-2 transition duration-300 ease-in-out hover:scale-105">
+                                    View Detail
                                 </button>
-                            </form>
+
+                                <!-- Registry Button -->
+                                <form action="/follow" method="post">
+                                    <input type="hidden" name="jobPostId" th:value="${jobPost.id}" />
+                                    <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-md text-xs px-4 py-2 transition duration-300 ease-in-out hover:scale-105 follow-button">
+                                        Registry
+                                    </button>
+                                </form>
+                            </div>
+
+
+
 
                         </div>
 
@@ -371,15 +400,41 @@
                             Specializing in elegant bridal makeup. Available for bookings!
                         </p>
                     </div>
+
+                    <!--                            Modal view Job Detail:-->
+                    <div id="jobDetailModal" class="fixed w-1/2 shadow-md inset-0 flex items-center justify-center mt-4 bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 transform opacity-0 scale-95  hidden ">
+                        <div class="p-6 space-y-6">
+                            <div class="flex flex-col md:flex-row gap-6">
+                                <div class="md:w-1/3">
+                                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" alt="Job post image" class="w-full h-48 object-cover rounded-lg shadow-md">
+                                </div>
+                                <div class="md:w-2/3 space-y-4">
+                                    <div class="flex items-center gap-3">
+                                        <h2 class="text-2xl font-bold text-gray-800">Senior Frontend Developer</h2>
+                                        <!--                                                //job type:-->
+                                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">Full-time</span>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <p class="text-gray-600"><span class="font-medium">Posted by:</span> John Developer</p>
+                                        <p class="text-gray-600"><span class="font-medium">Location:</span> San Francisco, CA</p>
+                                        <p class="text-gray-600"><span class="font-medium">Salary:</span> $120,000 - $150,000</p>
+                                    </div>
+                                    <p class="text-gray-700">We are seeking an experienced Frontend Developer to join our dynamic team. The ideal candidate will have strong expertise in modern JavaScript frameworks and a passion for creating exceptional user experiences.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
 
 
+
+
         <!-- Right Sidebar -->
         <div class="w-1/4">
-            <div class="bg-white p-6 rounded-lg shadow-md h-full overflow-y-auto">
+            <div id="scrollContainer" class= "bg-white p-6 rounded-lg  h-full overflow-y-auto">
                 <h2 class="font-bold text-xl mb-6">Premium Profiles ⭐</h2>
                 <div class="relative overflow-hidden">
                     <div id="profileCarousel" class="space-y-6 transition-transform duration-500">
@@ -394,14 +449,14 @@
                                 </div>
                             </div>
 
-                            <div class="rounded-lg overflow-hidden border-2 border-purple-100 shadow-md">
+                            <div class="rounded-lg overflow-hidden border-2 border-purple-100">
                                 <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702"
                                      alt="Lisa's Work"
                                      class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
                             </div>
                         </div>
                         <!-- Profile 2 -->
-                        <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl shadow-lg">
+                        <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl ">
                             <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-all">
                                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04"
                                      class="w-14 h-14 rounded-full object-cover">
@@ -410,13 +465,13 @@
                                     <p class="text-sm text-gray-500">Fashion MUA</p>
                                 </div>
                             </div>
-                            <div class="rounded-lg overflow-hidden border-2 border-purple-100 shadow-md">
+                            <div class="rounded-lg overflow-hidden border-2 border-purple-100">
                                 <img src="https://images.unsplash.com/photo-1542596594-649edbc13630" alt="Maria's Work"
                                      class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
                             </div>
                         </div>
                         <!-- Profile 3 -->
-                        <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl shadow-lg">
+                        <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl ">
                             <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-all">
                                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04"
                                      class="w-14 h-14 rounded-full object-cover">
@@ -425,13 +480,13 @@
                                     <p class="text-sm text-gray-500">IT MUA</p>
                                 </div>
                             </div>
-                            <div class="rounded-lg overflow-hidden border-2 border-purple-100 shadow-md">
+                            <div class="rounded-lg overflow-hidden border-2 border-purple-100 ">
                                 <img src="https://images.unsplash.com/photo-1542596594-649edbc13630" alt="Ja's Work"
                                      class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
                             </div>
                         </div>
                         <!-- Profile 4 -->
-                        <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl shadow-lg">
+                        <div class="space-y-4 border-2 border-purple-200 p-4 rounded-xl ">
                             <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-all">
                                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04"
                                      class="w-14 h-14 rounded-full object-cover">
@@ -440,7 +495,7 @@
                                     <p class="text-sm text-gray-500">IT MUA</p>
                                 </div>
                             </div>
-                            <div class="rounded-lg overflow-hidden border-2 border-purple-100 shadow-md">
+                            <div class="rounded-lg overflow-hidden border-2 border-purple-100 ">
                                 <img src="https://images.unsplash.com/photo-1542596594-649edbc13630" alt="Ank's Work"
                                      class="w-full h-32 object-cover transform hover:scale-105 transition-transform duration-300">
                             </div>
@@ -453,6 +508,25 @@
 </div>
 
 <script>
+
+    const scrollContainer = document.getElementById('scrollContainer');
+
+    const scrollSpeed = 5;
+
+    // Hàm cuộn tự động
+    function autoScroll() {
+        scrollContainer.scrollTop += scrollSpeed; // Cuộn xuống
+        if (scrollContainer.scrollTop >= scrollContainer.scrollHeight - scrollContainer.clientHeight) {
+            scrollContainer.scrollTop = 0; // Reset lại nếu cuộn hết
+        }
+    }
+
+    // Bắt đầu cuộn tự động với khoảng thời gian 10ms
+    setInterval(autoScroll, 10);
+
+
+
+
     let currentProfileIndex = 0;
     const profileCarousel = document.getElementById("profileCarousel");
     const profileHeight = profileCarousel.children[0].offsetHeight + 24;
@@ -560,6 +634,23 @@
             });
         }
     }
+
+
+
+    const viewButton = document.getElementById('viewButton');
+    const infoSection = document.getElementById('jobDetailModal');
+
+    viewButton.addEventListener('click', () => {
+        const isExpanded = viewButton.getAttribute('aria-expanded') === 'true';
+        viewButton.setAttribute('aria-expanded', !isExpanded);
+        infoSection.classList.toggle('hidden');
+        setTimeout(() => {
+            infoSection.classList.toggle('opacity-0');
+            infoSection.classList.toggle('scale-95');
+        }, 10);
+    });
+
+
 
 
 </script>
